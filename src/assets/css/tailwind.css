@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply font-bold py-2 px-4 rounded;
+}
+
+.btn[disabled] {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+
+.btn-primary {
+  @apply bg-blue-500 text-white;
+}
+
+.btn-primary:hover {
+  @apply bg-blue-700;
+}
+
+.btn-secondary {
+  @apply text-gray-700 border-gray-300 border;
+}
+
+.btn-secondary:hover {
+  @apply bg-gray-700;
+}
+
+.btn-xs {
+  @apply text-xs;
+}
+.btn-xl {
+  @apply text-xl;
+}
