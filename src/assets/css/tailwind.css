@@ -2,34 +2,235 @@
 @tailwind components;
 @tailwind utilities;
 
+/*.btn {*/
+/*  @apply font-bold py-2 px-4 rounded;*/
+/*}*/
+
+
+@layer base {
+  :root {
+    --trello-color: #007AC0;
+    --jira-color: #0052CC;
+    --toggle-color: #E57CD8;
+    --green-success: #48bb78;
+    --play-color: #CCEFE6;
+    --play-hover-color: #38a169;
+    --stop-color: #FF7C7C;
+    --stop-hover-color: #E85C5C;
+  }
+  .font-text-roboto-mono {
+    font-family: 'Roboto Mono', monospace;
+  }
+  body {
+    font-family: Roboto, sans-serif;
+    @apply text-base text-gray-700;
+  }
+
+  h1 {
+    @apply text-4xl py-4 text-gray-900;
+  }
+
+  h2 {
+    @apply text-3xl py-4 text-gray-900;
+  }
+
+  h3 {
+    @apply text-2xl py-4;
+  }
+
+  h4 {
+    @apply text-xl py-4;
+  }
+
+  p {
+    @apply py-4;
+  }
+
+  small {
+    @apply text-sm block;
+  }
+
+  .base-transition {
+    @apply transition duration-300 ease-in-out;
+  }
+}
+
+.text-time {
+  @apply font-text-roboto-mono text-gray-400;
+}
+
+.text-time.success {
+  @apply text-green-700;
+}
+
+.base-layout {
+  @apply p-4 my-2 flex rounded-theme border border-solid;
+}
+
+/**
+  Task Component Style
+ */
+.task-item {
+  @apply base-layout;
+  @apply bg-white border-gray-400;
+  @apply base-transition;
+}
+
+.task-item:not(.disabled) {
+  @apply shadow-sm;
+}
+
+.task-item-hover{ @apply border-gray-500; }
+
+.task-item:not(.disabled):hover {
+  @apply task-item-hover;
+}
+
+.task-item:not(.disabled):not(.active):hover {
+  @apply shadow;
+}
+
+.task-item .task-item--icon {
+  @apply text-5xl leading-10;
+}
+
+.task-item .task-item--body {
+  @apply flex-1 px-4 flex-auto truncate;
+  @apply text-xl leading-6;
+}
+
+.task-item .task-item--body .task-item--body--footer  {
+  @apply text-time;
+}
+
+.task-item .task-item--body-side {
+  @apply flex flex-col justify-center flex-none;
+}
+
+.task-item.active {
+  @apply shadow;
+}
+
+.task-item.active:hover {
+  @apply shadow-lg;
+}
+
+.task-item.disabled {
+  @apply bg-gray-100;
+}
+
+.task-item.done .icon > * ,
+.task-item.disabled .icon > *,
+.task-item.disabled .task-item--body,
+.task-item.done .task-item--body--footer,
+.task-item.disabled .task-item--body--footer{
+  @apply text-gray-400;
+}
+
+.task-item.billeable .task-item--body--footer, .task-item.active .timer {
+  color: var(--green-success) !important;
+}
+
+.task-item.active .timer {
+  @apply text-lg font-bold animate-pulse;
+}
+/**
+  Icons for tasks
+ */
+.icon {
+  @apply text-5xl leading-10 base-transition;
+}
+
+.icon.trello * {
+  color: var(--trello-color);
+}
+
+.icon.jira * {
+  color: var(--jira-color);
+}
+
+.icon.stop * {
+  @apply cursor-pointer animate-pulse;
+  color: var(--stop-color);
+}
+
+.icon.stop:hover * {
+  @apply animate-none;
+  color: var(--stop-hover-color);
+}
+
+.icon.play * {
+  @apply cursor-pointer;
+  color: var(--play-color);
+}
+
+.icon.play:hover * {
+  color: var(--play-hover-color);
+}
+
+/**
+panel
+ */
+
+.panel {
+  @apply base-layout flex-col;
+}
+
+.panel--title {
+  @apply text-xl mb-2 font-bold;
+}
+
+/**
+  Button
+ */
 .btn {
-  @apply font-bold py-2 px-4 rounded;
+  @apply text-white font-bold py-2 px-4 rounded-theme shadow border-2 border-gray-600 text-gray-600;
 }
-
+.btn-hover {
+  @apply shadow-md border-gray-800 text-gray-800;
+}
+.btn:hover {
+  @apply btn-hover;
+}
 .btn[disabled] {
-  @apply opacity-50 cursor-not-allowed;
+  @apply text-gray-400 border-gray-400 cursor-default shadow-none;
 }
-
 
 .btn-primary {
-  @apply bg-blue-500 text-white;
+  @apply bg-blue-500 border-blue-500 text-white;
 }
-
+.btn-primary-hover {
+  @apply bg-blue-700 border-blue-700 text-white;
+}
 .btn-primary:hover {
-  @apply bg-blue-700;
+  @apply btn-primary-hover;
+}
+.btn-primary[disabled] {
+  @apply bg-gray-400 border-gray-400 text-white cursor-default shadow-none;
 }
 
 .btn-secondary {
-  @apply text-gray-700 border-gray-300 border;
+  @apply border-blue-500 text-blue-500 border-2;
 }
-
+.btn-secondary-hover {
+  @apply border-blue-700 text-blue-700;
+}
 .btn-secondary:hover {
-  @apply bg-gray-700;
+  @apply btn-secondary-hover;
+}
+.btn-secondary[disabled] {
+  @apply text-gray-400 border-gray-400 cursor-default shadow-none;
 }
 
-.btn-xs {
-  @apply text-xs;
+/**
+   link
+ */
+.link {
+  @apply mr-4 text-blue-400 cursor-pointer
 }
-.btn-xl {
-  @apply text-xl;
+.link-hover {
+  @apply text-blue-600;
+}
+.link:hover {
+  @apply link-hover;
 }
