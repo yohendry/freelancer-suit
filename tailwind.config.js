@@ -11,6 +11,9 @@ module.exports = {
       'lg': '0.5rem',
       'theme': '15px',
     },
+    outline: {
+      blue: '2px solid #0000bb',
+    },
     extend: {
       screens: {
         xs: { max: "400px" },

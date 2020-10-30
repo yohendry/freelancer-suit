@@ -147,17 +147,17 @@ function App() {
           </div>
           <div className="mt-4">
             <Button className="mr-4" type="primary"   disabled={false}>Click me</Button>
-            <Button className="mr-4" type="primary"   wait={true}>Click me</Button>
+            <Button className="mr-4" type="primary"   busy={true}>Click me</Button>
             <Button className="mr-4" type="primary"   disabled={true}>Click me</Button>
           </div>
           <div className="mt-4">
             <Button className="mr-4" type="secondary">Click me</Button>
-            <Button className="mr-4" type="secondary" wait={true}>Click me</Button>
+            <Button className="mr-4" type="secondary" busy={true}>Click me</Button>
             <Button className="mr-4" type="secondary" disabled={true}>Click me</Button>
           </div>
           <div className="mt-4">
             <Button className="mr-4">Click me</Button>
-            <Button className="mr-4" wait={true}>
+            <Button className="mr-4" busy={true}>
               <i className="fas fa-external-link-alt mr-2"></i> Click me
             </Button>
             <Button disabled={true}>
