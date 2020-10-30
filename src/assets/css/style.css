@@ -19209,23 +19209,32 @@ small {
   color: var(--jira-color);
 }
 
-.icon.stop * {
+.icon-play-stop {
+  font-size: 3rem;
+  line-height: 2.5rem;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  border-radius:50%;
+}
+
+.icon-play-stop.stop * {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   color: var(--stop-color);
 }
 
-.icon.stop:hover * {
-  animation: none;
-  color: var(--stop-hover-color);
-}
-
-.icon.play * {
+.icon-play-stop.play * {
   cursor: pointer;
   color: var(--play-color);
 }
 
-.icon.play:hover * {
+.icon-play-stop.stop:hover * {
+  animation: none;
+  color: var(--stop-hover-color);
+}
+
+.icon-play-stop.play:hover * {
   color: var(--play-hover-color);
 }
 

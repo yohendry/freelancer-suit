@@ -158,22 +158,26 @@
   color: var(--jira-color);
 }
 
-.icon.stop * {
-  @apply cursor-pointer animate-pulse;
+.icon-play-stop {
+  @apply .icon cursor-pointer;
+  border-radius:50%;
+}
+
+.icon-play-stop.stop * {
+  @apply animate-pulse;
   color: var(--stop-color);
 }
 
-.icon.stop:hover * {
-  @apply animate-none;
-  color: var(--stop-hover-color);
-}
-
-.icon.play * {
+.icon-play-stop.play * {
   @apply cursor-pointer;
   color: var(--play-color);
 }
 
-.icon.play:hover * {
+.icon-play-stop.stop:hover * {
+  @apply animate-none;
+  color: var(--stop-hover-color);
+}
+.icon-play-stop.play:hover * {
   color: var(--play-hover-color);
 }
 

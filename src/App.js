@@ -1,9 +1,20 @@
 import logo from './logo.svg';
 import './assets/css/style.css';
 import Button from './components/Button';
+import PlayPauseButton from './components/PlayPauseButton';
 
 function App() {
+  const onInitFunction = () => {
+    console.log('Init counter');
+  };
+  const onFinishFunction = () => {
+    console.log('Finisg counter');
+  };
+  const onTickTimer = (date) => {
+    console.log(`tick ${date}`);
+  };
   const handleClickPromiseResolve = () => {
+    console.log('waiting');
     const promise = new Promise( (resolve, reject) => {
       setTimeout(() => {
         resolve('resolved');
@@ -13,11 +24,12 @@ function App() {
   }
 
   const handleClickPromiseReject = () => {
+    console.log('waiting');
     const promise = new Promise( (resolve, reject) => {
       setTimeout(() => {
         reject('rejected');
       }, 1000);
-    }).catch(console.error);
+    }).catch(console.log);
     return promise;
   }
 
@@ -107,9 +119,10 @@ function App() {
                 </div>
               </div>
               <div className="task-item--body-side">
-                <div className="icon stop">
-                  <i className="far fa-stop-circle"></i>
-                </div>
+                <PlayPauseButton
+                    _onFinishTimer={onFinishFunction}
+                    _onInitTimer={onInitFunction}
+                    _onTickTimer={onTickTimer} />
               </div>
             </div>
           </li>
@@ -129,9 +142,10 @@ function App() {
                 </div>
               </div>
               <div className="task-item--body-side">
-                <div className="icon play ">
-                  <i className="far fa-play-circle hover:text-green-700"></i>
-                </div>
+                <PlayPauseButton
+                    _onFinishTimer={onFinishFunction}
+                    _onInitTimer={onInitFunction}
+                    _onTickTimer={onTickTimer} />
               </div>
             </div>
           </li>

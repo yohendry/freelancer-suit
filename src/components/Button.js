@@ -20,7 +20,7 @@ function Button(props) {
     }
 
     const defaultFunction = () => {console.log('click')};
-    const handleClick = function() {
+    const handleClickWrapper = () => {
         const result = (typeof _onClick === 'function') ? _onClick() : defaultFunction();
 
         if (!(result && 'then' in result && (typeof result.then === 'function'))) { //result is not a promise
@@ -50,7 +50,7 @@ function Button(props) {
         <button
             className={classes}
             disabled={disabled}
-            onClick={handleClick}
+            onClick={handleClickWrapper}
         >
             {busy && spin} {props.children}
         </button>
