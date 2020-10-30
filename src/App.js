@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './assets/css/style.css';
+import Button from './components/Button';
 
 function App() {
   return (
@@ -144,17 +145,27 @@ function App() {
           <div className="panel--body">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
           </div>
-          <div>
-            <button className="btn btn-primary mr-4">Click me</button>
-            <button className="btn btn-secondary mr-4">Click me</button>
-            <button className="btn mr-4">Click me</button>
-            <a href={"#"} className="link">link</a>
+          <div className="mt-4">
+            <Button className="mr-4" type="primary"   disabled={false}>Click me</Button>
+            <Button className="mr-4" type="primary"   wait={true}>Click me</Button>
+            <Button className="mr-4" type="primary"   disabled={true}>Click me</Button>
           </div>
           <div className="mt-4">
-            <button className="btn btn-primary mr-4" disabled>Click me</button>
-            <button className="btn btn-secondary mr-4" disabled>Click me</button>
-            <button className="btn mr-4" disabled>Click me</button>
-            
+            <Button className="mr-4" type="secondary">Click me</Button>
+            <Button className="mr-4" type="secondary" wait={true}>Click me</Button>
+            <Button className="mr-4" type="secondary" disabled={true}>Click me</Button>
+          </div>
+          <div className="mt-4">
+            <Button className="mr-4">Click me</Button>
+            <Button className="mr-4" wait={true}>
+              <i className="fas fa-external-link-alt mr-2"></i> Click me
+            </Button>
+            <Button disabled={true}>
+              <i className="fas fa-external-link-alt mr-2"></i> Click me
+            </Button>
+          </div>
+          <div>
+            <a href={"#"} className="link">link</a>
           </div>
         </div>
       </div>
