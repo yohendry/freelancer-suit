@@ -1,9 +1,9 @@
 import {useState} from 'react';
 
 function Button(props) {
-    const {type, disabled, className, busy, _onClick} = props;
+    const {type, disabled, className, _onClick} = props;
 
-    const [busyState, setBusyState] = useState(busy);
+    const [busy, setBusy] = useState(false);
 
     let variantClass = null,
         spinClass = 'text-gray-600';
@@ -20,13 +20,17 @@ function Button(props) {
     }
 
     const defaultFunction = () => {console.log('click')};
-    const handleClick = () => {
-        setBusyState(true);
-        const timer = setTimeout(() => {
-            _onClick ? _onClick() : defaultFunction();
-            clearTimeout(timer);
-            setBusyState(false);
-        }, 1000);
+    const handleClick = function() {
+        const result = (typeof _onClick === 'function') ? _onClick() : defaultFunction();
+
+        if (!(result && 'then' in result && (typeof result.then === 'function'))) { //result is not a promise
+            return;
+        }
+
+        setBusy(true);
+        result
+            .then(() => setBusy(false))
+            .catch(() => setBusy(false));
     };
 
     const spin = (
@@ -38,7 +42,7 @@ function Button(props) {
         </div>
     );
 
-    const classes = ['btn', variantClass, className, busyState ? 'busy' : null]
+    const classes = ['btn', variantClass, className, busy ? 'busy' : null]
         .filter(Boolean) //filter falsy values
         .join(' ');
     
@@ -48,7 +52,7 @@ function Button(props) {
             disabled={disabled}
             onClick={handleClick}
         >
-            {busyState && spin} {props.children}
+            {busy && spin} {props.children}
         </button>
     );
 }

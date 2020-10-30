@@ -3,6 +3,24 @@ import './assets/css/style.css';
 import Button from './components/Button';
 
 function App() {
+  const handleClickPromiseResolve = () => {
+    const promise = new Promise( (resolve, reject) => {
+      setTimeout(() => {
+        resolve('resolved');
+      }, 1000);
+    }).then(console.log);
+    return promise;
+  }
+
+  const handleClickPromiseReject = () => {
+    const promise = new Promise( (resolve, reject) => {
+      setTimeout(() => {
+        reject('rejected');
+      }, 1000);
+    }).catch(console.error);
+    return promise;
+  }
+
   return (
     <section className="flex justify-center m-4">
       <div className="w-1/2 mr-2">
@@ -151,12 +169,12 @@ function App() {
             <Button className="mr-4" type="primary"   disabled={true}>Click me</Button>
           </div>
           <div className="mt-4">
-            <Button className="mr-4" type="secondary">Click me</Button>
+            <Button className="mr-4" type="secondary" _onClick={handleClickPromiseResolve}>Click me</Button>
             <Button className="mr-4" type="secondary" busy={true}>Click me</Button>
             <Button className="mr-4" type="secondary" disabled={true}>Click me</Button>
           </div>
           <div className="mt-4">
-            <Button className="mr-4">Click me</Button>
+            <Button className="mr-4" _onClick={handleClickPromiseReject}>Click me</Button>
             <Button className="mr-4" busy={true}>
               <i className="fas fa-external-link-alt mr-2"></i> Click me
             </Button>
