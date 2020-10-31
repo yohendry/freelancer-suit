@@ -27,19 +27,19 @@
   }
 
   h1 {
-    @apply text-4xl py-4 text-gray-900;
+    @apply py-4 text-4xl text-gray-900;
   }
 
   h2 {
-    @apply text-3xl py-4 text-gray-900;
+    @apply py-4 text-3xl text-gray-900;
   }
 
   h3 {
-    @apply text-2xl py-4;
+    @apply py-4 text-2xl;
   }
 
   h4 {
-    @apply text-xl py-4;
+    @apply py-4 text-xl;
   }
 
   p {
@@ -81,7 +81,7 @@
  */
 .task-item {
   @apply base-layout;
-  @apply bg-white border-gray-400;
+  @apply bg-white border-gray-400 border-2;
   @apply base-transition;
 }
 
@@ -117,11 +117,11 @@
 }
 
 .task-item.active {
-  @apply shadow;
+  @apply shadow border-gray-500;
 }
 
 .task-item.active:hover {
-  @apply shadow-lg;
+  @apply shadow-lg border-gray-700;
 }
 
 .task-item.disabled {
@@ -141,7 +141,7 @@
 }
 
 .task-item.active .timer {
-  @apply text-lg font-bold animate-pulse;
+  @apply absolute text-lg font-bold base-transition;
 }
 /**
   Icons for tasks
@@ -194,7 +194,7 @@ panel
 }
 
 /**
-  Button
+  Index
  */
 .btn {
   @apply py-2 px-4 rounded-theme shadow relative base-transition;

@@ -601,33 +601,33 @@ body {
 }
 
 h1 {
-  font-size: 2.25rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  font-size: 2.25rem;
   --text-opacity: 1;
   color: #1a202c;
   color: rgba(26, 32, 44, var(--text-opacity));
 }
 
 h2 {
-  font-size: 1.875rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  font-size: 1.875rem;
   --text-opacity: 1;
   color: #1a202c;
   color: rgba(26, 32, 44, var(--text-opacity));
 }
 
 h3 {
-  font-size: 1.5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 h4 {
-  font-size: 1.25rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  font-size: 1.25rem;
 }
 
 p {
@@ -19105,6 +19105,7 @@ small {
   --border-opacity: 1;
   border-color: #cbd5e0;
   border-color: rgba(203, 213, 224, var(--border-opacity));
+  border-width: 2px;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -19157,10 +19158,16 @@ small {
 
 .task-item.active {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --border-opacity: 1;
+  border-color: #a0aec0;
+  border-color: rgba(160, 174, 192, var(--border-opacity));
 }
 
 .task-item.active:hover {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --border-opacity: 1;
+  border-color: #4a5568;
+  border-color: rgba(74, 85, 104, var(--border-opacity));
 }
 
 .task-item.disabled {
@@ -19184,9 +19191,12 @@ small {
 }
 
 .task-item.active .timer {
+  position: absolute;
   font-size: 1.125rem;
   font-weight: 700;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /**
@@ -19260,7 +19270,7 @@ panel
 }
 
 /**
-  Button
+  Index
  */
 
 .btn {

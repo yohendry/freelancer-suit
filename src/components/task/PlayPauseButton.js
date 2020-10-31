@@ -1,56 +1,75 @@
-import {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, forwardRef, useImperativeHandle} from 'react';
+import {checkFunctionExist, callFunctionIfExist} from '../../utils.js';
 
-function PlayPauseButton(props) {
+function PlayPauseButton(props, ref) {
 
-    const {_onClick, _onInitTimer, _onFinishTimer, _onTickTimer} = props;
-    const intervalTime = 1000;
-    const [busy, setBusy] = useState(false);
+  const {_onTimerStart, _onTimerStop, _onTimerTick} = props;
+  const intervalTime = 1000;
+  const [hasStarted, setHasStarted] = useState(false);
 
-    const interval = useRef();
+  const interval = useRef();
+  const timerStartDate = useRef(null);
+  const buttonRef = useRef(null)
     
-    useEffect(() => {
-        return () => {clearIntervalIfExist()};
-    }, [])
-    
-    const clearIntervalIfExist = () => {
-        interval && interval.current && clearInterval(interval.current);
-    };
+  useEffect(() => {
+    return () => {clearIntervalIfExist()};
+  }, []);
 
-    const checkFunctionExist = (fn) => {
-        return fn && typeof fn === 'function';
-    };
-    
-    const handleClickWrapper = () => {
-        const newBusy = !busy;
-        setBusy(newBusy);
-        
-        if (newBusy && checkFunctionExist(_onInitTimer)) {
-           _onInitTimer(new Date());
-           if(checkFunctionExist(_onTickTimer)) {
-               interval.current = setInterval(() => {
-                   _onTickTimer(new Date());
-               }, intervalTime);
-           }
-        } else if(!newBusy && checkFunctionExist(_onFinishTimer)) {
-            _onFinishTimer(new Date());
-            clearIntervalIfExist();
-        }
-    };
+  useImperativeHandle(ref, () => ({
+    stop: () => {
+      timerStartDate.current && stopTimer(timerStartDate.current)
+    }
+  }));
 
-    const stopIcon = <i className="far fa-stop-circle"></i>;
-    const playIcon = <i className="far fa-play-circle"></i>;
-    const className = `icon-play-stop rounded-full ${busy ? 'stop' : 'play'}`;
-    const buttonTitle = busy ? 'Stop timer' : 'Start timer';
-    return (
-        <button
-            aria-abel={buttonTitle}
-            title={buttonTitle}
-            className={className}
-            onClick={handleClickWrapper}
-        >
-            {busy ? stopIcon : playIcon}
-        </button>
-    );
+  const clearIntervalIfExist = () => {
+    interval && interval.current && clearInterval(interval.current);
+  }
+
+  const handleClickWrapper = () => {
+    const currentHasStarted = !hasStarted;
+    currentHasStarted ? startTimer() : stopTimer();
+  }
+
+  const startTimer = () => {
+    timerStartDate.current = new Date();
+    callFunctionIfExist(_onTimerStart, timerStartDate.current);
+
+    if(!checkFunctionExist(_onTimerTick)) return; //don't set interval is tick function does not exist
+
+    interval.current = setInterval(() => {
+      const tickDate = new Date();
+      callFunctionIfExist(_onTimerTick, {
+        date: tickDate,
+        elapsed: tickDate - timerStartDate.current
+      })
+    }, intervalTime);
+    setHasStarted(true);
+  }
+
+  const stopTimer = () => {
+    const stopDate =  new Date();
+    callFunctionIfExist(_onTimerStop, {
+      date: stopDate,
+      elapsed: stopDate - timerStartDate.current
+    })
+    clearIntervalIfExist();
+    setHasStarted(false);
+  }
+  const stopIcon = <i className="far fa-stop-circle" />;
+  const playIcon = <i className="far fa-play-circle" />;
+  const className = `icon-play-stop rounded-full ${hasStarted ? 'stop' : 'play'}`;
+  const buttonTitle = hasStarted ? 'Stop timer' : 'Start timer';
+  return (
+    <button
+      ref={buttonRef}
+      aria-label={buttonTitle}
+      title={buttonTitle}
+      className={className}
+      onClick={handleClickWrapper}
+    >
+      {hasStarted ? stopIcon : playIcon}
+    </button>
+  );
 }
 
-export default PlayPauseButton;
+export default forwardRef(PlayPauseButton);
