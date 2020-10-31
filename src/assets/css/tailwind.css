@@ -136,7 +136,7 @@
   @apply text-gray-400;
 }
 
-.task-item.billeable .task-item--body--footer, .task-item.active .timer {
+.task-item.billable .task-item--body--footer, .task-item.active .timer {
   color: var(--green-success) !important;
 }
 
@@ -256,7 +256,9 @@ panel
    link
  */
 .link {
-  @apply mr-4 text-blue-400 cursor-pointer
+  @apply mr-4 text-blue-400 cursor-pointer;
+  border-radius: 5px;
+  padding: 1px 5px;
 }
 .link-hover {
   @apply text-blue-600;

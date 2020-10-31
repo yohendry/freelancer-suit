@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './assets/css/style.css';
-import Button from './components/Button';
-import PlayPauseButton from './components/PlayPauseButton';
+import Button from './components/common/Button';
+import PlayPauseButton from './components/task/PlayPauseButton';
+import TaskItem from "./components/task/TaskItem";
 
 function App() {
   const onInitFunction = () => {
@@ -168,6 +169,12 @@ function App() {
 
               </div>
             </div>
+          </li>
+          <li>
+            <TaskItem task={{id: 'YOH-420', title: 'test title jira', done: false, provider: 'jira', url: '#'}}/>
+          </li>
+          <li>
+            <TaskItem task={{id: 'YQYjc1gC', title: 'test title trello', done: false, provider: 'trello', url: '#'}} />
           </li>
         </ul>
 

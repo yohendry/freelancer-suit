@@ -19179,7 +19179,7 @@ small {
   color: rgba(203, 213, 224, var(--text-opacity));
 }
 
-.task-item.billeable .task-item--body--footer, .task-item.active .timer {
+.task-item.billable .task-item--body--footer, .task-item.active .timer {
   color: var(--green-success) !important;
 }
 
@@ -19431,7 +19431,9 @@ panel
   --text-opacity: 1;
   color: #63b3ed;
   color: rgba(99, 179, 237, var(--text-opacity));
-  cursor: pointer
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 1px 5px;
 }
 
 .link-hover {
