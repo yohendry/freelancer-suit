@@ -1,7 +1,48 @@
-import logo from './logo.svg';
+import React, {useRef} from 'react'
 import './assets/css/style.css';
+import Button from './components/common/Button/';
+import Task from "./components/Task/";
 
 function App() {
+
+  const taskRefsList = useRef([]);
+
+  const _onTimerStart = (id) => {
+    const foundRef = taskRefsList.current.find(item => item.id === id);
+    if(!foundRef) return;
+    taskRefsList.current //list of refs
+      .filter((item) => item.id !== id) //get the items not active
+      .forEach(item => item.ref.stopTimer()); //perform stop
+  }
+  const handleClickPromiseResolve = () => {
+    console.log('waiting');
+    return new Promise( (resolve) => {
+      setTimeout(() => {
+        resolve('resolved');
+      }, 1000);
+    }).then(console.log);
+  }
+
+  const handleClickPromiseReject = () => {
+    console.log('waiting');
+    return new Promise( (resolve, reject) => {
+      setTimeout(() => {
+        reject('rejected');
+      }, 1000);
+    }).catch(console.log);
+  }
+
+  const setTaskRef = (ref, id) => {
+    const foundRef = taskRefsList.current.find(item => item.id === id);
+    if (foundRef) return;
+    taskRefsList.current.push({id, ref});
+  };
+
+  const taskList = [
+    {id: 'YOH-420', title: 'test title jira', done: false, provider: 'jira', url: '#', elapsed: 123123},
+    {id: 'YQYjc1gC', title: 'test title trello', done: false, provider: 'trello', url: '#'}
+  ];
+
   return (
     <section className="flex justify-center m-4">
       <div className="w-1/2 mr-2">
@@ -18,124 +59,15 @@ function App() {
       <div className="w-1/2">
         <div className="py-4 text-xl border-b border-gray-500">Components</div>
         <ul className="task-list">
-          <li className="">
-            <div className="task-item done non-billeable">
-              <div className="icon trello flex-none">
-                <i className="fab fa-trello"></i>
-              </div>
-              <div className="task-item--body">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                <div className="task-item--body--footer text-xs">
-                  <i className="fas fa-wallet mr-2"></i>
-                  <a href={"#"} className="link">
-                    <i className="fas fa-external-link-alt mr-2"></i>
-                    <span>YQYjc1gC</span>
-                  </a>
-                  <span>
-                    <i className="fas fa-hourglass-end mr-2"></i>
-                    <span>30m</span>
-                  </span>
-                </div>
-              </div>
-              <div className="task-item--body-side flex-none">
-                <small className="text-time">09h 15m</small>
-                <small className="text-time">09h 45m</small>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className="task-item done billeable">
-              <div className="icon jira">
-                <i className="fab fa-jira"></i>
-              </div>
-              <div className="task-item--body">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                <div className="task-item--body--footer text-xs">
-                  <i className="fas fa-wallet mr-2"></i>
-                  <a href={"#"} className="link">
-                    <i className="fas fa-external-link-alt mr-2"></i>
-                    <span>YOH-420</span>
-                  </a>
-                  <span className="">
-                    <i className="fas fa-hourglass-end mr-2"></i>
-                    <span>30m</span>
-                  </span>
-                </div>
-              </div>
-              <div className="task-item--body-side">
-                <small className="text-time">09h 15m</small>
-                <small className="text-time">09h 45m</small>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className="task-item active">
-              <div className="icon jira">
-                <i className="fab fa-jira"></i>
-              </div>
-              <div className="task-item--body">
-                Lorem ipsum dolor sit
-                <div className="task-item--body--footer text-xs">
-                  <i className="fas fa-wallet mr-2"></i>
-                  <a href={"#"} className="link">
-                    <i className="fas fa-external-link-alt mr-2"></i>
-                    <span>YOH-420</span>
-                  </a>
-                  <span className="timer">
-                    <i className="fas fa-hourglass-end mr-2"></i>
-                    <span>30m</span>
-                  </span>
-                </div>
-              </div>
-              <div className="task-item--body-side">
-                <div className="icon stop">
-                  <i className="far fa-stop-circle"></i>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className="task-item billeable">
-              <div className="icon trello">
-                <i className="fab fa-trello"></i>
-              </div>
-              <div className="task-item--body">
-                Lorem ipsum dolor sit
-                <div className="task-item--body--footer text-xs">
-                  <i className="fas fa-wallet mr-2"></i>
-                  <a href={"#"} className="link" target="_blank">
-                    <i className="fas fa-external-link-alt mr-2"></i>
-                    <span>YQYjc1gC</span>
-                  </a>
-                </div>
-              </div>
-              <div className="task-item--body-side">
-                <div className="icon play ">
-                  <i className="far fa-play-circle hover:text-green-700"></i>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li >
-            <div className="task-item disabled">
-              <div className="icon trello">
-                <i className="fab fa-trello"></i>
-              </div>
-              <div className="task-item--body">
-                Lorem ipsum dolor sit
-                <div className="task-item--body--footer text-xs">
-                  <i className="fas fa-wallet mr-2"></i>
-                  <a href={"#"} className="link" target="_blank">
-                    <i className="fas fa-external-link-alt mr-2"></i>
-                    <span>YQYjc1gC</span>
-                  </a>
-                </div>
-              </div>
-              <div className="task-item--body-side">
-
-              </div>
-            </div>
-          </li>
+          {taskList.map(task => (
+            <li key={task.id}>
+              <Task
+                task={task}
+                _onTimerStart={_onTimerStart}
+                ref={(ref) => {setTaskRef(ref, task.id)}}
+              />
+            </li>
+          ))}
         </ul>
 
 
@@ -144,17 +76,27 @@ function App() {
           <div className="panel--body">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
           </div>
-          <div>
-            <button className="btn btn-primary mr-4">Click me</button>
-            <button className="btn btn-secondary mr-4">Click me</button>
-            <button className="btn mr-4">Click me</button>
-            <a href={"#"} className="link">link</a>
+          <div className="mt-4">
+            <Button className="mr-4" type="primary"   disabled={false}>Click me</Button>
+            <Button className="mr-4" type="primary"   busy={true}>Click me</Button>
+            <Button className="mr-4" type="primary"   disabled={true}>Click me</Button>
           </div>
           <div className="mt-4">
-            <button className="btn btn-primary mr-4" disabled>Click me</button>
-            <button className="btn btn-secondary mr-4" disabled>Click me</button>
-            <button className="btn mr-4" disabled>Click me</button>
-            
+            <Button className="mr-4" type="secondary" _onClick={handleClickPromiseResolve}>Click me</Button>
+            <Button className="mr-4" type="secondary" busy={true}>Click me</Button>
+            <Button className="mr-4" type="secondary" disabled={true}>Click me</Button>
+          </div>
+          <div className="mt-4">
+            <Button className="mr-4" _onClick={handleClickPromiseReject}>Click me</Button>
+            <Button className="mr-4" busy={true}>
+              <i className="fas fa-external-link-alt mr-2" /> Click me
+            </Button>
+            <Button disabled={true}>
+              <i className="fas fa-external-link-alt mr-2" /> Click me
+            </Button>
+          </div>
+          <div>
+            <a href={"www.google.com"} className="link">link</a>
           </div>
         </div>
       </div>

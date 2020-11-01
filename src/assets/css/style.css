@@ -601,33 +601,33 @@ body {
 }
 
 h1 {
-  font-size: 2.25rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  font-size: 2.25rem;
   --text-opacity: 1;
   color: #1a202c;
   color: rgba(26, 32, 44, var(--text-opacity));
 }
 
 h2 {
-  font-size: 1.875rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  font-size: 1.875rem;
   --text-opacity: 1;
   color: #1a202c;
   color: rgba(26, 32, 44, var(--text-opacity));
 }
 
 h3 {
-  font-size: 1.5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 h4 {
-  font-size: 1.25rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  font-size: 1.25rem;
 }
 
 p {
@@ -11832,34 +11832,14 @@ small {
   opacity: 1;
 }
 
-.outline-none {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
+.outline-blue {
+  outline: 2px solid #0000bb;
+  outline-offset: 0;
 }
 
-.outline-white {
-  outline: 2px dotted white;
-  outline-offset: 2px;
-}
-
-.outline-black {
-  outline: 2px dotted black;
-  outline-offset: 2px;
-}
-
-.focus\:outline-none:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.focus\:outline-white:focus {
-  outline: 2px dotted white;
-  outline-offset: 2px;
-}
-
-.focus\:outline-black:focus {
-  outline: 2px dotted black;
-  outline-offset: 2px;
+.focus\:outline-blue:focus {
+  outline: 2px solid #0000bb;
+  outline-offset: 0;
 }
 
 .overflow-auto {
@@ -19075,6 +19055,15 @@ small {
 
 /*}*/
 
+.outline-focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+*:focus, button:focus, input:focus, a:focus  {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
 .text-time {
   font-family: 'Roboto Mono', monospace;
   --text-opacity: 1;
@@ -19116,6 +19105,7 @@ small {
   --border-opacity: 1;
   border-color: #cbd5e0;
   border-color: rgba(203, 213, 224, var(--border-opacity));
+  border-width: 2px;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -19168,10 +19158,16 @@ small {
 
 .task-item.active {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --border-opacity: 1;
+  border-color: #a0aec0;
+  border-color: rgba(160, 174, 192, var(--border-opacity));
 }
 
 .task-item.active:hover {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --border-opacity: 1;
+  border-color: #4a5568;
+  border-color: rgba(74, 85, 104, var(--border-opacity));
 }
 
 .task-item.disabled {
@@ -19190,14 +19186,17 @@ small {
   color: rgba(203, 213, 224, var(--text-opacity));
 }
 
-.task-item.billeable .task-item--body--footer, .task-item.active .timer {
+.task-item.billable .task-item--body--footer, .task-item.active .timer {
   color: var(--green-success) !important;
 }
 
 .task-item.active .timer {
+  position: absolute;
   font-size: 1.125rem;
   font-weight: 700;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /**
@@ -19220,23 +19219,32 @@ small {
   color: var(--jira-color);
 }
 
-.icon.stop * {
+.icon-play-stop {
+  font-size: 3rem;
+  line-height: 2.5rem;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  border-radius:50%;
+}
+
+.icon-play-stop.stop * {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   color: var(--stop-color);
 }
 
-.icon.stop:hover * {
-  animation: none;
-  color: var(--stop-hover-color);
-}
-
-.icon.play * {
+.icon-play-stop.play * {
   cursor: pointer;
   color: var(--play-color);
 }
 
-.icon.play:hover * {
+.icon-play-stop.stop:hover * {
+  animation: none;
+  color: var(--stop-hover-color);
+}
+
+.icon-play-stop.play:hover * {
   color: var(--play-hover-color);
 }
 
@@ -19262,27 +19270,31 @@ panel
 }
 
 /**
-  Button
+  Index
  */
 
 .btn {
-  --text-opacity: 1;
-  color: #fff;
-  color: rgba(255, 255, 255, var(--text-opacity));
-  font-weight: 700;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
   border-radius: 15px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  position: relative;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
   border-width: 2px;
   --border-opacity: 1;
   border-color: #718096;
   border-color: rgba(113, 128, 150, var(--border-opacity));
-  --text-opacity: 1;
-  color: #718096;
-  color: rgba(113, 128, 150, var(--text-opacity));
 }
 
 .btn-hover {
@@ -19385,7 +19397,7 @@ panel
   color: rgba(43, 108, 176, var(--text-opacity));
 }
 
-.btn-secondary:hover {
+.btn-secondary {
   --border-opacity: 1;
   border-color: #2b6cb0;
   border-color: rgba(43, 108, 176, var(--border-opacity));
@@ -19405,6 +19417,21 @@ panel
   box-shadow: none;
 }
 
+.btn-secondary.busy,
+.btn-secondary.busy:hover,
+.btn-primary.busy,
+.btn-primary.busy:hover,
+.btn.busy,
+.btn.busy:hover {
+  --text-opacity: 0;
+}
+
+.btn-busy {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /**
    link
  */
@@ -19414,7 +19441,9 @@ panel
   --text-opacity: 1;
   color: #63b3ed;
   color: rgba(99, 179, 237, var(--text-opacity));
-  cursor: pointer
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 1px 5px;
 }
 
 .link-hover {
@@ -30616,34 +30645,14 @@ panel
     opacity: 1;
   }
 
-  .sm\:outline-none {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
+  .sm\:outline-blue {
+    outline: 2px solid #0000bb;
+    outline-offset: 0;
   }
 
-  .sm\:outline-white {
-    outline: 2px dotted white;
-    outline-offset: 2px;
-  }
-
-  .sm\:outline-black {
-    outline: 2px dotted black;
-    outline-offset: 2px;
-  }
-
-  .sm\:focus\:outline-none:focus {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-  }
-
-  .sm\:focus\:outline-white:focus {
-    outline: 2px dotted white;
-    outline-offset: 2px;
-  }
-
-  .sm\:focus\:outline-black:focus {
-    outline: 2px dotted black;
-    outline-offset: 2px;
+  .sm\:focus\:outline-blue:focus {
+    outline: 2px solid #0000bb;
+    outline-offset: 0;
   }
 
   .sm\:overflow-auto {
@@ -49010,34 +49019,14 @@ panel
     opacity: 1;
   }
 
-  .md\:outline-none {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
+  .md\:outline-blue {
+    outline: 2px solid #0000bb;
+    outline-offset: 0;
   }
 
-  .md\:outline-white {
-    outline: 2px dotted white;
-    outline-offset: 2px;
-  }
-
-  .md\:outline-black {
-    outline: 2px dotted black;
-    outline-offset: 2px;
-  }
-
-  .md\:focus\:outline-none:focus {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-  }
-
-  .md\:focus\:outline-white:focus {
-    outline: 2px dotted white;
-    outline-offset: 2px;
-  }
-
-  .md\:focus\:outline-black:focus {
-    outline: 2px dotted black;
-    outline-offset: 2px;
+  .md\:focus\:outline-blue:focus {
+    outline: 2px solid #0000bb;
+    outline-offset: 0;
   }
 
   .md\:overflow-auto {
@@ -67404,34 +67393,14 @@ panel
     opacity: 1;
   }
 
-  .lg\:outline-none {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
+  .lg\:outline-blue {
+    outline: 2px solid #0000bb;
+    outline-offset: 0;
   }
 
-  .lg\:outline-white {
-    outline: 2px dotted white;
-    outline-offset: 2px;
-  }
-
-  .lg\:outline-black {
-    outline: 2px dotted black;
-    outline-offset: 2px;
-  }
-
-  .lg\:focus\:outline-none:focus {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-  }
-
-  .lg\:focus\:outline-white:focus {
-    outline: 2px dotted white;
-    outline-offset: 2px;
-  }
-
-  .lg\:focus\:outline-black:focus {
-    outline: 2px dotted black;
-    outline-offset: 2px;
+  .lg\:focus\:outline-blue:focus {
+    outline: 2px solid #0000bb;
+    outline-offset: 0;
   }
 
   .lg\:overflow-auto {
@@ -85798,34 +85767,14 @@ panel
     opacity: 1;
   }
 
-  .xl\:outline-none {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
+  .xl\:outline-blue {
+    outline: 2px solid #0000bb;
+    outline-offset: 0;
   }
 
-  .xl\:outline-white {
-    outline: 2px dotted white;
-    outline-offset: 2px;
-  }
-
-  .xl\:outline-black {
-    outline: 2px dotted black;
-    outline-offset: 2px;
-  }
-
-  .xl\:focus\:outline-none:focus {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-  }
-
-  .xl\:focus\:outline-white:focus {
-    outline: 2px dotted white;
-    outline-offset: 2px;
-  }
-
-  .xl\:focus\:outline-black:focus {
-    outline: 2px dotted black;
-    outline-offset: 2px;
+  .xl\:focus\:outline-blue:focus {
+    outline: 2px solid #0000bb;
+    outline-offset: 0;
   }
 
   .xl\:overflow-auto {
@@ -104192,34 +104141,14 @@ panel
     opacity: 1;
   }
 
-  .xs\:outline-none {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
+  .xs\:outline-blue {
+    outline: 2px solid #0000bb;
+    outline-offset: 0;
   }
 
-  .xs\:outline-white {
-    outline: 2px dotted white;
-    outline-offset: 2px;
-  }
-
-  .xs\:outline-black {
-    outline: 2px dotted black;
-    outline-offset: 2px;
-  }
-
-  .xs\:focus\:outline-none:focus {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-  }
-
-  .xs\:focus\:outline-white:focus {
-    outline: 2px dotted white;
-    outline-offset: 2px;
-  }
-
-  .xs\:focus\:outline-black:focus {
-    outline: 2px dotted black;
-    outline-offset: 2px;
+  .xs\:focus\:outline-blue:focus {
+    outline: 2px solid #0000bb;
+    outline-offset: 0;
   }
 
   .xs\:overflow-auto {

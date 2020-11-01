@@ -27,19 +27,19 @@
   }
 
   h1 {
-    @apply text-4xl py-4 text-gray-900;
+    @apply py-4 text-4xl text-gray-900;
   }
 
   h2 {
-    @apply text-3xl py-4 text-gray-900;
+    @apply py-4 text-3xl text-gray-900;
   }
 
   h3 {
-    @apply text-2xl py-4;
+    @apply py-4 text-2xl;
   }
 
   h4 {
-    @apply text-xl py-4;
+    @apply py-4 text-xl;
   }
 
   p {
@@ -53,6 +53,15 @@
   .base-transition {
     @apply transition duration-300 ease-in-out;
   }
+}
+
+.outline-focus {
+  @apply shadow-outline;
+}
+
+*:focus, button:focus, input:focus, a:focus  {
+  outline: none !important;
+  @apply outline-focus;
 }
 
 .text-time {
@@ -72,7 +81,7 @@
  */
 .task-item {
   @apply base-layout;
-  @apply bg-white border-gray-400;
+  @apply bg-white border-gray-400 border-2;
   @apply base-transition;
 }
 
@@ -108,11 +117,11 @@
 }
 
 .task-item.active {
-  @apply shadow;
+  @apply shadow border-gray-500;
 }
 
 .task-item.active:hover {
-  @apply shadow-lg;
+  @apply shadow-lg border-gray-700;
 }
 
 .task-item.disabled {
@@ -127,12 +136,12 @@
   @apply text-gray-400;
 }
 
-.task-item.billeable .task-item--body--footer, .task-item.active .timer {
+.task-item.billable .task-item--body--footer, .task-item.active .timer {
   color: var(--green-success) !important;
 }
 
 .task-item.active .timer {
-  @apply text-lg font-bold animate-pulse;
+  @apply absolute text-lg font-bold base-transition;
 }
 /**
   Icons for tasks
@@ -149,22 +158,26 @@
   color: var(--jira-color);
 }
 
-.icon.stop * {
-  @apply cursor-pointer animate-pulse;
+.icon-play-stop {
+  @apply .icon cursor-pointer;
+  border-radius:50%;
+}
+
+.icon-play-stop.stop * {
+  @apply animate-pulse;
   color: var(--stop-color);
 }
 
-.icon.stop:hover * {
-  @apply animate-none;
-  color: var(--stop-hover-color);
-}
-
-.icon.play * {
+.icon-play-stop.play * {
   @apply cursor-pointer;
   color: var(--play-color);
 }
 
-.icon.play:hover * {
+.icon-play-stop.stop:hover * {
+  @apply animate-none;
+  color: var(--stop-hover-color);
+}
+.icon-play-stop.play:hover * {
   color: var(--play-hover-color);
 }
 
@@ -181,10 +194,12 @@ panel
 }
 
 /**
-  Button
+  Index
  */
 .btn {
-  @apply text-white font-bold py-2 px-4 rounded-theme shadow border-2 border-gray-600 text-gray-600;
+  @apply py-2 px-4 rounded-theme shadow relative base-transition;
+  @apply text-white font-bold text-gray-600;
+  @apply border-2 border-gray-600;
 }
 .btn-hover {
   @apply shadow-md border-gray-800 text-gray-800;
@@ -215,18 +230,35 @@ panel
 .btn-secondary-hover {
   @apply border-blue-700 text-blue-700;
 }
-.btn-secondary:hover {
+.btn-secondary {
   @apply btn-secondary-hover;
 }
 .btn-secondary[disabled] {
   @apply text-gray-400 border-gray-400 cursor-default shadow-none;
 }
 
+.btn-secondary.busy,
+.btn-secondary.busy:hover,
+.btn-primary.busy,
+.btn-primary.busy:hover,
+.btn.busy,
+.btn.busy:hover {
+  @apply text-opacity-0;
+}
+
+.btn-busy {
+  @apply absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /**
    link
  */
 .link {
-  @apply mr-4 text-blue-400 cursor-pointer
+  @apply mr-4 text-blue-400 cursor-pointer;
+  border-radius: 5px;
+  padding: 1px 5px;
 }
 .link-hover {
   @apply text-blue-600;
