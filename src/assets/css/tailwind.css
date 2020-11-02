@@ -132,7 +132,7 @@
 }
 
 .task-item .task-item--body .task-item--body--footer  {
-  @apply text-time;
+  @apply text-time relative;
 }
 
 .task-item .task-item--body-side {
