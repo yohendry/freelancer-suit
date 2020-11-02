@@ -18,6 +18,5 @@ export function formatMilliseconds(s) {
     return n.toString().padStart(2, '0');
   }
 
-  if (hrs === 0 && mins === 0 && secs === 0) return '';
   return hrs > 0 ? `${padNumber(hrs)}h ${padNumber(mins)}m` : `${padNumber(mins)}m ${padNumber(secs)}s`;
 }

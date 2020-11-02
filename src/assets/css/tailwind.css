@@ -1,12 +1,9 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 /*.btn {*/
 /*  @apply font-bold py-2 px-4 rounded;*/
 /*}*/
-
-
 @layer base {
   :root {
     --trello-color: #007AC0;
@@ -17,6 +14,7 @@
     --play-hover-color: #38a169;
     --stop-color: #FF7C7C;
     --stop-hover-color: #E85C5C;
+    --border-radius: 15px;
   }
   .font-text-roboto-mono {
     font-family: 'Roboto Mono', monospace;
@@ -51,7 +49,32 @@
   }
 
   .base-transition {
-    @apply transition duration-300 ease-in-out;
+    @apply transition duration-200 ease-in-out;
+  }
+
+  input {
+    height: 37px;
+  }
+
+  .rounded-theme {
+    border-radius: var(--border-radius);
+  }
+
+  footer {
+    @apply py-1 px-4 bg-gray-400 border-t border-gray-500;
+    @apply text-gray-600;
+    @apply shadow-inner;
+  }
+
+  .sidebar {
+    @apply h-screen w-4/5 pt-4 left-0 z-50 fixed;
+    @apply bg-gray-800 text-white;
+    @apply transform base-transition;
+  }
+
+  .sidebar.hide-sidebar {
+    @apply -translate-x-full absolute;
+    left: -100%;
   }
 }
 
@@ -73,7 +96,8 @@
 }
 
 .base-layout {
-  @apply p-4 my-2 flex rounded-theme border border-solid;
+  @apply p-4 my-2 flex rounded-theme bg-white;
+  @apply border-solid  border-gray-400 border-2;
 }
 
 /**
@@ -81,7 +105,6 @@
  */
 .task-item {
   @apply base-layout;
-  @apply bg-white border-gray-400 border-2;
   @apply base-transition;
 }
 
@@ -186,7 +209,7 @@ panel
  */
 
 .panel {
-  @apply base-layout flex-col;
+  @apply base-layout flex-col bg-white;
 }
 
 .panel--title {
@@ -198,7 +221,7 @@ panel
  */
 .btn {
   @apply py-2 px-4 rounded-theme shadow relative base-transition;
-  @apply text-white font-bold text-gray-600;
+  @apply bg-white font-bold text-gray-600;
   @apply border-2 border-gray-600;
 }
 .btn-hover {
@@ -266,3 +289,38 @@ panel
 .link:hover {
   @apply link-hover;
 }
+
+.navlink {
+  @apply inline-flex px-4 py-2 rounded-theme items-center w-full;
+  @apply w-full;
+  @apply transition-colors duration-150;
+}
+
+.navlink.active {
+  @apply bg-gray-700;
+}
+
+.navlink > .navlink-indicator {
+  @apply inset-y-0 left-0 bg-blue-500 hidden;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  width: 8px;
+}
+
+.navlink.active > .navlink-indicator {
+  @apply absolute block;
+}
+.navlink:not(.active):hover {
+  @apply text-white;
+}
+
+.navlink-home {
+  @apply uppercase text-white font-bold rounded-theme p-2;
+}
+
+.search-field {
+  @apply w-full pl-12 pr-6 text-sm rounded-theme border-0 bg-gray-700;
+  @apply text-white;
+}
+
+@tailwind utilities;
