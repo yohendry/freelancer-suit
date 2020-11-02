@@ -5,10 +5,11 @@ module.exports = {
   },
   purge: ["./src/**/*.html", "./src/**/*.jsx", "./src/**/*.js"],
   theme: {
+    outline: {
+      blue: '2px solid #0000bb',
+    },
     extend: {
-      screens: {
-        xs: { max: "400px" },
-      },
+
     },
   },
   variants: {},
