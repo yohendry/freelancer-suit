@@ -1,7 +1,7 @@
-import React, {useRef, useEffect, useContext} from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import { NavLink, Link } from "react-router-dom";
 import useWindowSize from "../../hooks/useWindowSize";
-import {SidebarContext} from "../../App";
+import { SidebarContext } from "../../App";
 
 function Sidebar({ open }) {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext);
@@ -28,8 +28,7 @@ function Sidebar({ open }) {
 
   const willHide = () => {
     if (open) return false;
-    if (screenIsAtLeast('md')) return false;
-    return true;
+    return !screenIsAtLeast('md');
   }
 
   return (
@@ -64,12 +63,13 @@ function Sidebar({ open }) {
             <li className="relative px-4 my-2" key={link.id}>
               <NavLink
                 to={link.path}
+                onClick={ () => setIsSidebarOpen(false) }
                 exact
                 activeClassName="active"
                 className="navlink"
               >
-                <span className="navlink-indicator" aria-hidden="true"></span>
-                { link.icon && <i className={`mr-4 fas ${link.icon}`}></i>}
+                <span className="navlink-indicator" aria-hidden="true" />
+                { link.icon && <i className={`mr-4 fas ${link.icon}`} />}
                 {link.name}
               </NavLink>
             </li>
