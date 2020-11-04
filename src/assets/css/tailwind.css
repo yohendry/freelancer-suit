@@ -128,7 +128,7 @@
 
 .task-item .task-item--body {
   @apply flex-1 px-4 flex-auto truncate;
-  @apply text-xl leading-6;
+  @apply leading-6;
 }
 
 .task-item .task-item--body .task-item--body--footer  {
@@ -170,7 +170,7 @@
   Icons for tasks
  */
 .icon {
-  @apply text-5xl leading-10 base-transition;
+  @apply text-4xl leading-10 base-transition flex self-center ;
 }
 
 .icon.trello * {
@@ -182,7 +182,7 @@
 }
 
 .icon-play-stop {
-  @apply .icon cursor-pointer;
+  @apply .icon cursor-pointer text-6xl;
   border-radius:50%;
 }
 
@@ -279,9 +279,8 @@ panel
    link
  */
 .link {
-  @apply mr-4 text-blue-400 cursor-pointer;
+  @apply text-blue-400 cursor-pointer pr-2;
   border-radius: 5px;
-  padding: 1px 5px;
 }
 .link-hover {
   @apply text-blue-600;
@@ -291,25 +290,17 @@ panel
 }
 
 .navlink {
-  @apply inline-flex px-4 py-2 rounded-theme items-center w-full;
+  @apply inline-flex pl-6 pr-4 py-3 items-center w-full;
   @apply w-full;
   @apply transition-colors duration-150;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 .navlink.active {
-  @apply bg-gray-700;
+  @apply bg-gray-700 text-white;
 }
 
-.navlink > .navlink-indicator {
-  @apply inset-y-0 left-0 bg-blue-500 hidden;
-  border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
-  width: 8px;
-}
-
-.navlink.active > .navlink-indicator {
-  @apply absolute block;
-}
 .navlink:not(.active):hover {
   @apply text-white;
 }
@@ -321,6 +312,10 @@ panel
 .search-field {
   @apply w-full pl-12 pr-6 text-sm rounded-theme border-0 bg-gray-700;
   @apply text-white;
+}
+
+.page-animation-renderer {
+  opacity: 0;
 }
 
 @tailwind utilities;

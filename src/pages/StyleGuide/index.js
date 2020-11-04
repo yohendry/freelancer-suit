@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {forwardRef, useRef} from 'react';
 import Button from '../../components/common/Button/';
 import Task from '../../components/Task/';
 import '../../assets/css/style.css';
@@ -18,7 +18,7 @@ function StyleGuide() {
     return new Promise( (resolve) => {
       setTimeout(() => {
         resolve('resolved');
-      }, 1000);
+      }, 5000000);
     }).then(console.log);
   }
 
@@ -27,7 +27,7 @@ function StyleGuide() {
     return new Promise( (resolve, reject) => {
       setTimeout(() => {
         reject('rejected');
-      }, 1000);
+      }, 5000000);
     }).catch(console.log);
   }
 
@@ -103,4 +103,4 @@ function StyleGuide() {
   );
 }
 
-export default StyleGuide;
+export default forwardRef(StyleGuide);

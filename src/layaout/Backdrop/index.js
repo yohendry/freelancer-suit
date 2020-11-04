@@ -1,9 +1,11 @@
 import React from 'react';
 
-function Backdrop(props) {
+function Backdrop({closeSidebar}) {
 
   return (
-    <div className="absolute bg-gray-900 inset-0 z-40 md:hidden bg-opacity-75" />
+    <div
+      onClick={() => closeSidebar()}
+      className="absolute bg-gray-900 inset-0 z-40 md:hidden bg-opacity-75" />
   );
 }
 

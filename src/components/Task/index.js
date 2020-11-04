@@ -46,17 +46,22 @@ function Task(props, ref) {
 
   return (
     <div className={classes}>
-      <div className={`icon ${provider}`}>
+      <div className={`icon md:text-5xl ${provider}`}>
         <i className={`fab fa-${provider}`} />
       </div>
       <div className="task-item--body">
-        {title}
+        <a
+          href={url}
+          className="link"
+          target="_blank"
+          rel="noreferrer"
+          aria-label={id}
+          title={`${provider.toUpperCase()} - ${id} -  ${title}`}
+        >
+          <i className="fas fa-external-link-alt" />
+        </a> {title}
         <div className="task-item--body--footer text-xs">
-          <i className="fas fa-wallet mr-2" />
-          <a href={url} className="link" target="_blank" rel="noreferrer">
-            <i className="fas fa-external-link-alt mr-2" />
-            <span>{id}</span>
-          </a>
+          <i className="fas fa-wallet mr-4 text-md" />
           {currentElapsed > 0 && (
             <span className="timer">
               <i className="fas fa-hourglass-end mr-2" />
@@ -73,6 +78,7 @@ function Task(props, ref) {
           </div>
         ) : (
           <PlayPauseButton
+            className={"text-5xl"}
             ref={setPlayPauseRef}
             _onTimerStop={onTimerStop}
             _onTimerStart={onTimerStart}

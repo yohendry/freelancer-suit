@@ -1,32 +1,37 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import StyleGuide from "./pages/StyleGuide/";
+
 import Header from "./layaout/Header";
 import Sidebar from "./layaout/Sidebar";
 import Backdrop from "./layaout/Backdrop";
-import NotFound from "./pages/NotFound";
+
+import routes from './conf/routes.js';
 import './assets/css/style.css';
+import PageAnimationRenderer from "./layaout/PageAnimationRenderer";
 
 export const SidebarContext = React.createContext();
 
 function App() {
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const closeSidebar = () => setIsSidebarOpen(false);
+
   return (
     <SidebarContext.Provider value={{isSidebarOpen, setIsSidebarOpen}}>
       <Router>
         <Sidebar open={isSidebarOpen}/>
         <div className="flex flex-col flex-1 w-full h-screen flex-no-wrap overflow-hidden relative">
-          {isSidebarOpen && <Backdrop />}
+          {isSidebarOpen && <Backdrop closeSidebar={closeSidebar} />}
           <Header />
-          <main className="flex-grow p-4 overflow-y-scroll">
+          <main className={"flex-grow p-4 overflow-y-scroll"} >
             <Switch>
-              <Route exact path="/styleguide" >
-                <StyleGuide />
-              </Route>
-              <Route exact path="/" >
-                Home
-              </Route>
-              <Route component={NotFound} />
+              {routes.map(({path, Component, exact, name}) => (
+                <Route exact={exact} path={path} key={name}>
+                  <PageAnimationRenderer>
+                    <Component />
+                  </PageAnimationRenderer>
+                </Route>
+              ))}
             </Switch>
           </main>
           <footer className="text-sm text-right">

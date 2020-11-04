@@ -57,7 +57,7 @@ function PlayPauseButton(props, ref) {
   }
   const stopIcon = <i className="far fa-stop-circle" />;
   const playIcon = <i className="far fa-play-circle" />;
-  const className = `icon-play-stop rounded-full ${hasStarted ? 'stop' : 'play'}`;
+  const className = `icon-play-stop rounded-full text-4xl md:text-5xl ${hasStarted ? 'stop' : 'play'}`;
   const buttonTitle = hasStarted ? 'Stop timer' : 'Start timer';
   return (
     <button

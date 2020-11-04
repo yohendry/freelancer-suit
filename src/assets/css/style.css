@@ -827,7 +827,6 @@ footer {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 1.25rem;
   line-height: 1.5rem;
 }
 
@@ -894,11 +893,13 @@ footer {
  */
 
 .icon {
-  font-size: 3rem;
+  font-size: 2.25rem;
   line-height: 2.5rem;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-self: center;
 }
 
 .icon.trello * {
@@ -910,12 +911,15 @@ footer {
 }
 
 .icon-play-stop {
-  font-size: 3rem;
+  font-size: 2.25rem;
   line-height: 2.5rem;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-self: center;
   cursor: pointer;
+  font-size: 4rem;
   border-radius:50%;
 }
 
@@ -1136,13 +1140,12 @@ panel
  */
 
 .link {
-  margin-right: 1rem;
   --text-opacity: 1;
   color: #63b3ed;
   color: rgba(99, 179, 237, var(--text-opacity));
   cursor: pointer;
+  padding-right: 0.5rem;
   border-radius: 5px;
-  padding: 1px 5px;
 }
 
 .link-hover {
@@ -1159,40 +1162,26 @@ panel
 
 .navlink {
   display: inline-flex;
-  padding-left: 1rem;
+  padding-left: 1.5rem;
   padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-radius: var(--border-radius);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
   align-items: center;
   width: 100%;
   width: 100%;
   transition-property: background-color, border-color, color, fill, stroke;
   transition-duration: 150ms;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 .navlink.active {
   --bg-opacity: 1;
   background-color: #4a5568;
   background-color: rgba(74, 85, 104, var(--bg-opacity));
-}
-
-.navlink > .navlink-indicator {
-  top: 0;
-  bottom: 0;
-  left: 0;
-  --bg-opacity: 1;
-  background-color: #4299e1;
-  background-color: rgba(66, 153, 225, var(--bg-opacity));
-  display: none;
-  border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
-  width: 8px;
-}
-
-.navlink.active > .navlink-indicator {
-  position: absolute;
-  display: block;
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
 }
 
 .navlink:not(.active):hover {
@@ -1224,6 +1213,10 @@ panel
   --text-opacity: 1;
   color: #fff;
   color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+.page-animation-renderer {
+  opacity: 0;
 }
 
 .space-y-0 > :not(template) ~ :not(template) {

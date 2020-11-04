@@ -1,6 +1,8 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "FS",
+  "name": "Freelancer suite - manage time and tasks for your projects.",
+  "description": "keep track of your projects, manage time and tasks, generate reports and more.",
+  "lang": "en-US",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +22,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#2d3848",
+  "background_color": "#2d3848"
 }

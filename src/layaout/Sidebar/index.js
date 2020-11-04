@@ -2,23 +2,26 @@ import React, { useRef, useEffect, useContext } from 'react';
 import { NavLink, Link } from "react-router-dom";
 import useWindowSize from "../../hooks/useWindowSize";
 import { SidebarContext } from "../../App";
+import routes from '../../conf/routes.js';
 
 function Sidebar({ open }) {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext);
   const { screenIsAtLeast } = useWindowSize();
   const sidebarRef = useRef(null);
 
-  const links = [{
-    id: 1,
-    name: 'Home',
-    path: '/',
-    icon: 'fa-home'
-  },{
-    id: 2,
-    name: 'Style Guide',
-    path: '/styleguide',
-    icon: 'fa-sitemap'
-  }];
+  const isSidebarRoute = route => {
+    if(!('navbar' in route)) return false;
+    return 'show' in route.navbar && route.navbar.show && 'order' in route.navbar;
+  };
+
+  const sortLinks = (prev, current) => prev.order < current.order ? -1 : 1;
+
+  const links = routes
+    .filter(isSidebarRoute)
+    .map(link => ({...link, ...link.navbar }))
+    .sort(sortLinks);
+
+  console.log(links);
 
   useEffect(() => {
     if(isSidebarOpen) {
@@ -59,18 +62,18 @@ function Sidebar({ open }) {
       </div>
       <nav className="mt-5">
         <ul className="text-gray-400">
-          {links.map(link => (
-            <li className="relative px-4 my-2" key={link.id}>
+          {links.map(({name, exact, path, icon, linkPath}) => (
+            <li className="relative pr-6 my-2" key={name}>
               <NavLink
-                to={link.path}
+                to={linkPath ? linkPath : path}
                 onClick={ () => setIsSidebarOpen(false) }
-                exact
+                exact={exact}
                 activeClassName="active"
                 className="navlink"
               >
                 <span className="navlink-indicator" aria-hidden="true" />
-                { link.icon && <i className={`mr-4 fas ${link.icon}`} />}
-                {link.name}
+                { icon && <i className={`mr-4 fas ${icon}`} />}
+                {name}
               </NavLink>
             </li>
           ))}
