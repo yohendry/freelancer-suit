@@ -290,15 +290,20 @@ panel
 }
 
 .navlink {
-  @apply inline-flex pl-6 pr-4 py-3 items-center w-full;
+  @apply inline-flex pl-6 pr-4 py-2 items-center w-full;
   @apply w-full;
   @apply transition-colors duration-150;
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
+  font-weight: 300;
 }
 
 .navlink.active {
   @apply bg-gray-700 text-white;
+}
+
+.navlink.home.active {
+  @apply bg-gray-700 text-blue-400;
 }
 
 .navlink:not(.active):hover {

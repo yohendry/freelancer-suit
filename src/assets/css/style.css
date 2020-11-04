@@ -1164,8 +1164,8 @@ panel
   display: inline-flex;
   padding-left: 1.5rem;
   padding-right: 1rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   align-items: center;
   width: 100%;
   width: 100%;
@@ -1173,6 +1173,7 @@ panel
   transition-duration: 150ms;
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
+  font-weight: 300;
 }
 
 .navlink.active {
@@ -1182,6 +1183,15 @@ panel
   --text-opacity: 1;
   color: #fff;
   color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+.navlink.home.active {
+  --bg-opacity: 1;
+  background-color: #4a5568;
+  background-color: rgba(74, 85, 104, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #63b3ed;
+  color: rgba(99, 179, 237, var(--text-opacity));
 }
 
 .navlink:not(.active):hover {

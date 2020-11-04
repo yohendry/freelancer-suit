@@ -21,8 +21,6 @@ function Sidebar({ open }) {
     .map(link => ({...link, ...link.navbar }))
     .sort(sortLinks);
 
-  console.log(links);
-
   useEffect(() => {
     if(isSidebarOpen) {
       sidebarRef.current.focus();
@@ -62,14 +60,14 @@ function Sidebar({ open }) {
       </div>
       <nav className="mt-5">
         <ul className="text-gray-400">
-          {links.map(({name, exact, path, icon, linkPath}) => (
-            <li className="relative pr-6 my-2" key={name}>
+          {links.map(({name, exact, path, icon, linkPath, extraClass}) => (
+            <li className="relative pr-8 my-2" key={name}>
               <NavLink
                 to={linkPath ? linkPath : path}
                 onClick={ () => setIsSidebarOpen(false) }
                 exact={exact}
                 activeClassName="active"
-                className="navlink"
+                className={`navlink ${extraClass}`}
               >
                 <span className="navlink-indicator" aria-hidden="true" />
                 { icon && <i className={`mr-4 fas ${icon}`} />}

@@ -5,7 +5,7 @@ const PageAnimationRenderer = ({children}) => {
   useEffect(() => {
     gsap.fromTo('.page-animation-renderer',
       {opacity: 0},
-      {opacity: 1, duration: 1, ease: "ease-in"}
+      {opacity: 1, duration: 0.7, ease: "ease-in"}
     );
   }, [children])
   return (

@@ -29,6 +29,7 @@ const routes = [{
   exact: true,
   name: 'Home',
   Component: Home,
+  extraClass:"home",
   navbar: {
     icon: 'fa-home',
     order: 1,
