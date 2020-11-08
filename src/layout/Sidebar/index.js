@@ -35,7 +35,7 @@ function Sidebar({ open }) {
   return (
     <aside
       className={`sidebar md:w-64 md:relative ${willHide() ? 'hide-sidebar' : ''}`} >
-      <div className="ml-4 mr-4 md:mr-2 flex justify-between">
+      <div className="ml-10 mr-4 md:mr-2 flex justify-between">
         <Link to='/' className="navlink-home">
           freelancer suite
         </Link>

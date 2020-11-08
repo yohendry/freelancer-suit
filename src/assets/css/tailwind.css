@@ -290,7 +290,7 @@ panel
 }
 
 .navlink {
-  @apply inline-flex pl-6 pr-4 py-2 items-center w-full;
+  @apply inline-flex pl-12 pr-4 py-2 items-center w-full;
   @apply w-full;
   @apply transition-colors duration-150;
   border-top-right-radius: var(--border-radius);

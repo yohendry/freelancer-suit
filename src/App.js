@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Header from "./layaout/Header";
-import Sidebar from "./layaout/Sidebar";
-import Backdrop from "./layaout/Backdrop";
+import Header from "./layout/Header";
+import Sidebar from "./layout/Sidebar";
+import Backdrop from "./layout/Backdrop";
 
 import routes from './conf/routes.js';
 import './assets/css/style.css';
-import PageAnimationRenderer from "./layaout/PageAnimationRenderer";
+import PageAnimationRenderer from "./layout/PageAnimationRenderer";
 
 export const SidebarContext = React.createContext();
 
