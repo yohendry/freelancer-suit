@@ -31,7 +31,7 @@ function Header({ className, showBrand }) {
           </svg>
         </SidebarToggleButton>
         {showBrand && (
-          <Link to="/" className="navlink-home mr-6">
+          <Link to="/" className="navlink-home mr-6 hidden md:block">
             freelancer suite
           </Link>
         )}

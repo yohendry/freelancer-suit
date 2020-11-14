@@ -8,14 +8,13 @@ import Backdrop from "../../Backdrop";
 function SidebarFirst({ options }) {
   const { isSidebarOpen, closeSidebar, theme } = options;
   return (
-    <div className="flex flex-col relative">
-      <Header showBrand={true} />
-      <div className="flex flex-1 w-full h-screen overflow-hidden">
-        {isSidebarOpen && <Backdrop closeSidebar={closeSidebar} />}
-        <Sidebar open={isSidebarOpen} minWidth={theme.sidebarWith} showBrand={false} />
+    <div className="flex relative">
+      <Sidebar open={isSidebarOpen} minWidth={theme.sidebarWith} showBrand={true} />
+      <div className="flex flex-col flex-1 w-full h-screen overflow-hidden">
+        <Header showBrand={false} />
         <Body />
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }

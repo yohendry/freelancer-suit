@@ -67,8 +67,9 @@
   }
 
   .sidebar {
-    @apply h-screen w-4/5 pt-4 left-0 z-50 fixed;
+    @apply h-screen w-full pt-4 left-0 z-50 fixed;
     @apply bg-gray-800 text-white;
+    left: 0;
     @apply transform base-transition;
   }
 

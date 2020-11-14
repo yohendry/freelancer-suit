@@ -8,7 +8,7 @@ import theme from "../../conf/theme.js";
 
 function Sidebar({ open, minWidth, showBrand }) {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext);
-  const { screenIsAtLeast } = useWindowSize();
+  const { screenIsAtLeast, screenIsAtMost } = useWindowSize();
   const sidebarRef = useRef(null);
 
   const isSidebarRoute = (route) => {
@@ -40,8 +40,8 @@ function Sidebar({ open, minWidth, showBrand }) {
     "shadow-2xl",
     "md:shadow-none",
     "sidebar",
-    "top-0",
     "md:w-64",
+    "top-0",
     "md:relative",
   ];
 
@@ -57,12 +57,12 @@ function Sidebar({ open, minWidth, showBrand }) {
     <aside className={classes.join(" ")} style={{ minWidth: minWidth }}>
       <div
         className={`ml-10 mr-4 md:mr-2 flex justify-between my-4 ${
-          theme.layout === theme.CONST.THEME.LAYOUT.HEADER_FIRST && "md:hidden"
+          theme.layout === theme.CONST.THEME.LAYOUT.HEADER_FIRST ? "md:hidden" : ''
         }`}
       >
-        <Link to="/" className="navlink-home text-3xl md:text-sm">
+        {(showBrand || screenIsAtMost("md")) && <Link to="/" className="navlink-home text-2xl md:text-sm">
           freelancer suite
-        </Link>
+        </Link>}
         <button
           className="p-3 rounded-md text-blue-500 hover:text-blue-400 md:hidden hover:outline-none"
           ref={sidebarRef}
@@ -75,7 +75,7 @@ function Sidebar({ open, minWidth, showBrand }) {
           />
         </button>
       </div>
-      <nav className={`mt-5 ${theme.layout === theme.CONST.THEME.LAYOUT.HEADER_FIRST && "md:mt-0"}`}>
+      <nav className="mt-5 md:mt-0">
         <ul className="text-gray-400">
           {links.map(({ name, exact, path, Icon, linkPath, extraClass }) => (
             <li className="relative pr-12 my-2" key={name}>
