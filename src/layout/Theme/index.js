@@ -9,8 +9,6 @@ import PageAnimationRenderer from "../../layout/PageAnimationRenderer";
 
 import routes from '../../conf/routes.js';
 
-console.log(routes);
-
 export const SidebarContext = React.createContext();
 
 function Theme({ options }) {

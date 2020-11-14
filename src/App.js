@@ -17,7 +17,7 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const closeSidebar = () => setIsSidebarOpen(false);
   const themeInnerHeaderFirst =
-    theme.layout === 1 ? (
+    theme.layout === theme.CONST.THEME.LAYOUT.HEADER_FIRST ? (
       <div className="flex flex-col relative">
         <Header showBrand={true} />
         <div className="flex flex-1 w-full h-screen overflow-hidden">

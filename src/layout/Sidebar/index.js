@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
+import { FaWindowClose } from 'react-icons/fa';
 import useWindowSize from "../../hooks/useWindowSize";
 import { SidebarContext } from "../../App";
 import routes from "../../conf/routes.js";
@@ -48,31 +49,18 @@ function Sidebar({ open, minWidth, showBrand }) {
     classes.push("hide-sidebar");
   }
 
-  if (theme.layout === 1) {
+  if (theme.layout === theme.CONST.THEME.LAYOUT.SIDEBAR_FIRST) {
     classes.push("md:pt-0");
   }
 
   return (
     <aside className={classes.join(" ")} style={{ minWidth: minWidth }}>
-      {/* <button
-        className="btn absolute"
-        onClick={() => setIsSidebarOpen(!!!isSidebarOpen)}
-        style={{
-          left: `${theme.sidebarWith}px`,
-          top: "80px",
-          padding: "0.5em",
-          borderRadius: "50%",
-          transform: "translateX(-50%)",
-        }}
-      >
-        {isSidebarOpen ? <FaChevronLeft /> : <FaChevronRight />}
-      </button> */}
       <div
-        className={`ml-10 mr-4 md:mr-2 flex justify-between ${
-          theme.layout === 1 && "md:hidden"
+        className={`ml-10 mr-4 md:mr-2 flex justify-between my-4 ${
+          theme.layout === theme.CONST.THEME.LAYOUT.HEADER_FIRST && "md:hidden"
         }`}
       >
-        <Link to="/" className="navlink-home">
+        <Link to="/" className="navlink-home text-3xl md:text-sm">
           freelancer suite
         </Link>
         <button
@@ -80,24 +68,14 @@ function Sidebar({ open, minWidth, showBrand }) {
           ref={sidebarRef}
           onClick={() => setIsSidebarOpen(false)}
         >
-          <svg
-            className="w-4 h-4"
+          <FaWindowClose
+            className="w-6 h-6"
             aria-hidden="true"
             fill="currentColor"
-            viewBox="0 0 460.775 460.775"
-          >
-            <path
-              d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55
-	c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55
-	c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505
-	c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55
-	l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719
-	c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"
-            />
-          </svg>
+          />
         </button>
       </div>
-      <nav className={`mt-5 ${theme.layout === 1 && "md:mt-0"}`}>
+      <nav className={`mt-5 ${theme.layout === theme.CONST.THEME.LAYOUT.HEADER_FIRST && "md:mt-0"}`}>
         <ul className="text-gray-400">
           {links.map(({ name, exact, path, Icon, linkPath, extraClass }) => (
             <li className="relative pr-12 my-2" key={name}>
@@ -106,7 +84,7 @@ function Sidebar({ open, minWidth, showBrand }) {
                 onClick={() => setIsSidebarOpen(false)}
                 exact={exact}
                 activeClassName="active"
-                className={`navlink ${extraClass}`}
+                className={`navlink ${extraClass} text-2xl md:text-sm my-2 md:my-0 py-3 md:py-2`}
               >
                 <span className="navlink-indicator" aria-hidden="true" />
                 {<Icon className="mr-4" />}
