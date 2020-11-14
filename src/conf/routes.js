@@ -2,6 +2,7 @@ import StyleGuide from "../pages/StyleGuide";
 import NotFound from "../pages/NotFound";
 import Home from "../pages/Home"
 import Dynamic from "../pages/Dynamic";
+import { FaDice, FaSitemap, FaHome } from "react-icons/fa";
 
 const routes = [{
   path: '/foo/:id',
@@ -10,7 +11,7 @@ const routes = [{
   name: 'Dynamic',
   Component: Dynamic,
   navbar: {
-    icon: 'fa-dice',
+    Icon: FaDice,
     order: 3,
     show: true
   }
@@ -20,7 +21,7 @@ const routes = [{
   name: 'Styleguide',
   Component: StyleGuide,
   navbar: {
-    icon: 'fa-sitemap',
+    Icon: FaSitemap,
     order: 2,
     show: true
   }
@@ -31,7 +32,7 @@ const routes = [{
   Component: Home,
   extraClass:"home",
   navbar: {
-    icon: 'fa-home',
+    Icon: FaHome,
     order: 1,
     show: true
   }

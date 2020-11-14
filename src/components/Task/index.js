@@ -1,11 +1,22 @@
-import React, {useState, useRef, forwardRef, useImperativeHandle} from 'react';
+import React, {
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import PlayPauseButton from "./PlayPauseButton";
-import {callFunctionIfExist, formatMilliseconds} from '../../utils.js';
-
+import { callFunctionIfExist, formatMilliseconds } from "../../utils.js";
+import {
+  FaTrello,
+  FaJira,
+  FaWallet,
+  FaHourglassEnd,
+  FaExternalLinkAlt,
+} from "react-icons/fa";
 
 function Task(props, ref) {
-  const {task, _onTimerStart} = props;
-  const {done, billable, provider, title, url, id, elapsed} = task;
+  const { task, _onTimerStart } = props;
+  const { done, billable, provider, title, url, id, elapsed } = task;
 
   const [active, setActive] = useState(false);
   const [currentElapsed, setCurrentElapsed] = useState(elapsed || 0);
@@ -15,19 +26,19 @@ function Task(props, ref) {
   useImperativeHandle(ref, () => ({
     stopTimer: () => {
       playPauseButtonRef.current.stop();
-    }
+    },
   }));
 
   const onTimerStart = () => {
     setActive(true);
     callFunctionIfExist(_onTimerStart, id);
-  }
+  };
 
   const onTimerStop = (result) => {
     updateElapsed(result.elapsed);
     initialElapsed.current = currentElapsed;
     setActive(false);
-  }
+  };
   const onTimerTick = (result) => {
     updateElapsed(result.elapsed);
   };
@@ -38,33 +49,45 @@ function Task(props, ref) {
 
   const setPlayPauseRef = (ref) => {
     playPauseButtonRef.current = ref;
-  }
+  };
 
-  const classes = ['task-item', billable ? 'billable' : null, done ? 'done' : null, active ? 'active' : null]
+  const classes = [
+    "task-item",
+    billable ? "billable" : null,
+    done ? "done" : null,
+    active ? "active" : null,
+  ]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   return (
     <div className={classes}>
       <div className={`icon md:text-5xl ${provider}`}>
-        <i className={`fab fa-${provider}`} />
+        {provider === "trello" ? <FaTrello /> : <FaJira />}
       </div>
       <div className="task-item--body">
         <a
           href={url}
-          className="link"
+          className="link inline-block"
           target="_blank"
           rel="noreferrer"
           aria-label={id}
           title={`${provider.toUpperCase()} - ${id} -  ${title}`}
         >
-          <i className="fas fa-external-link-alt" />
-        </a> {title}
+          <i className="">
+            <FaExternalLinkAlt />
+          </i>
+        </a>
+        <span className="inline-block">{title}</span>
         <div className="task-item--body--footer text-xs">
-          <i className="fas fa-wallet mr-4 text-md" />
+          <span className="mr-1 text-md inline-block">
+            <FaWallet />
+          </span>
           {currentElapsed > 0 && (
             <span className="timer">
-              <i className="fas fa-hourglass-end mr-2" />
+              <span className="mr-1 text-md inline-block">
+                <FaHourglassEnd />
+              </span>
               <span>{formatMilliseconds(currentElapsed)}</span>
             </span>
           )}

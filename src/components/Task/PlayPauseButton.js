@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useRef, forwardRef, useImperativeHandle} from 'react';
-import {checkFunctionExist, callFunctionIfExist} from '../../utils.js';
+import { checkFunctionExist, callFunctionIfExist } from '../../utils.js';
+import { FaStopCircle, FaPlayCircle } from "react-icons/fa";
 
 function PlayPauseButton(props, ref) {
 
@@ -55,8 +56,8 @@ function PlayPauseButton(props, ref) {
     clearIntervalIfExist();
     setHasStarted(false);
   }
-  const stopIcon = <i className="far fa-stop-circle" />;
-  const playIcon = <i className="far fa-play-circle" />;
+  const stopIcon = <FaStopCircle />;
+  const playIcon = <FaPlayCircle />;
   const className = `icon-play-stop rounded-full text-4xl md:text-5xl ${hasStarted ? 'stop' : 'play'}`;
   const buttonTitle = hasStarted ? 'Stop timer' : 'Start timer';
   return (

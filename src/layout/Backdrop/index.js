@@ -5,7 +5,7 @@ function Backdrop({closeSidebar}) {
   return (
     <div
       onClick={() => closeSidebar()}
-      className="absolute bg-gray-900 inset-0 z-40 md:hidden bg-opacity-75" />
+      className="absolute bg-black inset-0 z-40 md:hidden bg-opacity-75" />
   );
 }
 

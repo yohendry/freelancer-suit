@@ -1,44 +1,47 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import Header from "./layout/Header";
 import Sidebar from "./layout/Sidebar";
+import Body from "./layout/Body";
+import Footer from "./layout/Footer";
 import Backdrop from "./layout/Backdrop";
 
-import routes from './conf/routes.js';
-import './assets/css/style.css';
-import PageAnimationRenderer from "./layout/PageAnimationRenderer";
+import "./assets/css/style.css";
+
+import theme from "./conf/theme.js";
 
 export const SidebarContext = React.createContext();
 
 function App() {
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const closeSidebar = () => setIsSidebarOpen(false);
-
-  return (
-    <SidebarContext.Provider value={{isSidebarOpen, setIsSidebarOpen}}>
-      <Router>
-        <Sidebar open={isSidebarOpen}/>
+  const themeInnerHeaderFirst =
+    theme.layout === 1 ? (
+      <div className="flex flex-col relative">
+        <Header showBrand={true} />
+        <div className="flex flex-1 w-full h-screen overflow-hidden">
+          {isSidebarOpen && <Backdrop closeSidebar={closeSidebar} />}
+          <Sidebar open={isSidebarOpen} minWidth={theme.sidebarWith} showBrand={false} />
+          <Body />
+        </div>
+        <Footer />
+      </div>
+    ) : (
+      <div className="flex">
+        <Sidebar open={isSidebarOpen} minWidth={theme.sidebarWith} showBrand={true} />
         <div className="flex flex-col flex-1 w-full h-screen flex-no-wrap overflow-hidden relative">
           {isSidebarOpen && <Backdrop closeSidebar={closeSidebar} />}
-          <Header />
-          <main className={"flex-grow p-4 overflow-y-scroll"} >
-            <Switch>
-              {routes.map(({path, Component, exact, name}) => (
-                <Route exact={exact} path={path} key={name}>
-                  <PageAnimationRenderer>
-                    <Component />
-                  </PageAnimationRenderer>
-                </Route>
-              ))}
-            </Switch>
-          </main>
-          <footer className="text-sm text-right">
-            Yohendry Hurtado & Roberto Duran - 2020
-          </footer>
+          <Header showBrand={false} />
+          <Body />
+          <Footer />
         </div>
-      </Router>
+      </div>
+    );
+
+  return (
+    <SidebarContext.Provider value={{ isSidebarOpen, setIsSidebarOpen }}>
+      <Router>{themeInnerHeaderFirst}</Router>
     </SidebarContext.Provider>
   );
 }
