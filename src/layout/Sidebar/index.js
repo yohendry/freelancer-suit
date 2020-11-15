@@ -59,7 +59,7 @@ function Sidebar({ minWidth, showBrand }) {
   return (
     <aside className={sidebarClasses.join(' ')}>
       <div
-        className={`${isSidebarOpen ? 'ml-10' : 'ml-4'} mr-4 md:mr-2 flex justify-between my-4 ${
+        className={`${isSidebarOpen ? 'ml-10' : 'ml-3'} mr-4 md:mr-2 flex justify-between my-4 ${
           hideHeader ? 'md:hidden' : ''
         }`}
       >
@@ -80,7 +80,7 @@ function Sidebar({ minWidth, showBrand }) {
         <ul className="text-gray-400">
           {links.map(({ name, exact, path, Icon, linkPath, extraClass }) => (
             <li
-              className={`relative ${isSidebarOpen ? 'pr-12' : 'mr-2'} my-2`}
+              className={`relative ${isSidebarOpen ? 'pr-12' : 'mr-4'} my-2`}
               key={name}
             >
               <NavLink

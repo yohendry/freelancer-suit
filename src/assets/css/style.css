@@ -708,9 +708,9 @@ footer {
 }
 
 .sidebar.shrink-sidebar {
-  width : 65px;
-  max-width : 65px;
-  min-width : 65px;
+  width : 70px;
+  max-width : 70px;
+  min-width : 70px;
 }
 
 .sidebar.shrink-sidebar .navlink {
@@ -954,7 +954,6 @@ footer {
 }
 
 .icon-play-stop.stop * {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   color: var(--stop-color);
 }
 
