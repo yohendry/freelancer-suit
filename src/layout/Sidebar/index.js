@@ -64,7 +64,7 @@ function Sidebar({ minWidth, showBrand }) {
         }`}
       >
         {(showBrand || screenIsAtMost('md')) && (
-          <Link to="/" className="navlink-home text-2xl md:text-sm">
+          <Link to="/" className="navlink-home text-2xl md:text-sm" onClick={checkCloseSidebar}>
             {screenIsAtLeast('md') && !isSidebarOpen ? 'FS' : 'Freelancer Suite'}
           </Link>
         )}
