@@ -19,7 +19,7 @@ function StyleGuide() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve("resolved");
-      }, 5000000);
+      }, 2000);
     }).then(console.log);
   };
 
@@ -28,7 +28,7 @@ function StyleGuide() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         reject("rejected");
-      }, 5000000);
+      }, 2000);
     }).catch(console.log);
   };
 
@@ -137,13 +137,13 @@ function StyleGuide() {
             <Button className="" busy={true}>
               <i className=" mr-2  inline-block">
                 <FaExternalLinkAlt />
-              </i>{" "}
+              </i>
               Click me
             </Button>
             <Button disabled={true}>
               <i className=" mr-2 inline-block">
                 <FaExternalLinkAlt />
-              </i>{" "}
+              </i>
               Click me
             </Button>
           </div>

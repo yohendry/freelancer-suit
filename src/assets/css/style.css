@@ -699,13 +699,11 @@ footer {
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 264px;
-  --transform-translate-x: 0%;
 }
 
 .sidebar.hide-sidebar {
   --transform-translate-x: -100%;
   position: absolute;
-  transition-duration: 0ms;
   left: -100%;
 }
 
@@ -713,7 +711,6 @@ footer {
   width : 70px;
   max-width : 70px;
   min-width : 70px;
-  transition-duration: 0ms;
 }
 
 .sidebar.shrink-sidebar .navlink {
@@ -1164,7 +1161,8 @@ panel
 .btn-busy {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 /**

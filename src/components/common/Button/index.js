@@ -62,7 +62,7 @@ function Button(props) {
       disabled={disabled}
       onClick={handleClickWrapper}
     >
-      {busy && spin} {props.children}
+      {busy && spin} <span>{props.children}</span>
     </button>
   );
 }
