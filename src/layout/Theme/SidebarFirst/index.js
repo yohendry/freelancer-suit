@@ -3,10 +3,9 @@ import Header from "../../Header";
 import Sidebar from "../../Sidebar";
 import Body from "../../Body";
 import Footer from "../../Footer";
-import Backdrop from "../../Backdrop";
 
 function SidebarFirst({ options }) {
-  const { isSidebarOpen, closeSidebar, theme } = options;
+  const { isSidebarOpen, theme } = options;
   return (
     <div className="flex relative">
       <Sidebar open={isSidebarOpen} minWidth={theme.sidebarWith} showBrand={true} />
