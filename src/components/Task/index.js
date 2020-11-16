@@ -5,14 +5,15 @@ import React, {
   useImperativeHandle,
 } from "react";
 import PlayPauseButton from "./PlayPauseButton";
+import ExternalLink from '../common/ExternalLink';
 import { callFunctionIfExist, formatMilliseconds } from "../../utils.js";
 import {
   FaTrello,
   FaJira,
   FaWallet,
   FaHourglassEnd,
-  FaExternalLinkAlt,
 } from "react-icons/fa";
+
 
 function Task(props, ref) {
   const { task, _onTimerStart } = props;
@@ -66,18 +67,7 @@ function Task(props, ref) {
         {provider === "trello" ? <FaTrello /> : <FaJira />}
       </div>
       <div className="task-item--body">
-        <a
-          href={url}
-          className="link inline-block"
-          target="_blank"
-          rel="noreferrer"
-          aria-label={id}
-          title={`${provider.toUpperCase()} - ${id} -  ${title}`}
-        >
-          <i className="">
-            <FaExternalLinkAlt />
-          </i>
-        </a>
+        <ExternalLink url={url} label={id} title={`${provider.toUpperCase()} - ${id} -  ${title}`} />
         <span className="inline-block">{title}</span>
         <div className="task-item--body--footer text-xs">
           <span className="mr-1 text-md inline-block">
