@@ -1,8 +1,11 @@
-import React from "react";
-
+import React from 'react';
+import clsx from 'clsx';
 function Footer() {
+  const classes = {
+    footer: clsx('text-sm', 'text-right')
+  };
   return (
-    <footer className="text-sm text-right">
+    <footer className={classes.footer}>
       Yohendry Hurtado & Roberto Duran - 2020
     </footer>
   );
