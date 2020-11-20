@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import HeaderFirst from './layout/Theme/HeaderFirst';
-import SidebarFirst from './layout/Theme/SidebarFirst';
-import './assets/css/style.css';
-
-import theme from './conf/theme.js';
+import HeaderFirst from '@Layout/Theme/HeaderFirst';
+import SidebarFirst from '@Layout/Theme/SidebarFirst';
+import '@Assets/css/style.css';
+import theme from '@Conf/theme.js';
 
 export const SidebarContext = React.createContext();
 

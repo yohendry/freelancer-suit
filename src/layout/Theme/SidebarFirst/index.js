@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from "../../Header";
-import Sidebar from "../../Sidebar";
-import Body from "../../Body";
-import Footer from "../../Footer";
+import Header from "@Layout/Header";
+import Sidebar from "@Layout/Sidebar";
+import Body from "@Layout/Body";
+import Footer from "@Layout/Footer";
 
 function SidebarFirst({ options }) {
   const { isSidebarOpen, theme } = options;

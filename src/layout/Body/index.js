@@ -1,8 +1,8 @@
 import React from "react";
 import { Switch, Route } from 'react-router-dom';
-import PageAnimationRenderer from "../../layout/PageAnimationRenderer";
+import PageAnimationRenderer from "@Layout/PageAnimationRenderer";
 
-import routes from '../../conf/routes.js';
+import routes from '@Conf/routes.js';
 
 function Body() {
   return (

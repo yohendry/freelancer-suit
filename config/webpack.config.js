@@ -339,6 +339,7 @@ module.exports = function (webpackEnv) {
         '@Conf': [paths.appSrc, 'conf'].join('/'),
         '@Assets': [paths.appSrc, 'assets'].join('/'),
         '@Images': [paths.appSrc, 'assets', 'images'].join('/'),
+        '@Home': paths.appSrc,
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

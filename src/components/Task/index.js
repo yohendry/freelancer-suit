@@ -4,9 +4,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
-import PlayPauseButton from "./PlayPauseButton";
-import ExternalLink from '../common/ExternalLink';
-import { callFunctionIfExist, formatMilliseconds } from "../../utils.js";
+
 import {
   FaTrello,
   FaJira,
@@ -14,6 +12,9 @@ import {
   FaHourglassEnd,
 } from "react-icons/fa";
 
+import PlayPauseButton from "@Components/Task/PlayPauseButton";
+import ExternalLink from '@Components/common/ExternalLink';
+import { callFunctionIfExist, formatMilliseconds } from "@Home/utils.js";
 
 function Task(props, ref) {
   const { task, _onTimerStart } = props;

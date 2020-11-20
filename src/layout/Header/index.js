@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import avatar1 from "../../assets/images/avatar-1.svg";
-import avatar2 from "../../assets/images/avatar-2.svg";
-import avatar3 from "../../assets/images/avatar-3.svg";
-import avatar4 from "../../assets/images/avatar-4.svg";
-import SidebarToggleButton from "./SidebarToggleButton";
 import { BiBell } from "react-icons/bi";
 import { FaBars } from 'react-icons/fa';
+
+import avatar1 from "@Images/avatar-1.svg";
+import avatar2 from "@Images/avatar-2.svg";
+import avatar3 from "@Images/avatar-3.svg";
+import avatar4 from "@Images/avatar-4.svg";
+import SidebarToggleButton from "@Layout/Header/SidebarToggleButton";
 
 function Header({ className, showBrand }) {
   const avatarList = [avatar1, avatar2, avatar3, avatar4];

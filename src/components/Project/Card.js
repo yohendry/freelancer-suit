@@ -1,5 +1,5 @@
 import React from 'react';
-import ExternalLink from '../common/ExternalLink';
+import ExternalLink from '@Components/common/ExternalLink';
 import {
   FaTrello,
   FaJira,

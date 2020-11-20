@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef, forwardRef, useImperativeHandle} from 'react';
-import { checkFunctionExist, callFunctionIfExist } from '../../utils.js';
 import { FaStopCircle, FaPlayCircle } from "react-icons/fa";
+import { checkFunctionExist, callFunctionIfExist } from '@Home/utils.js';
 
 function PlayPauseButton(props, ref) {
 

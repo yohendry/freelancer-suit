@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { FaWindowClose } from 'react-icons/fa';
-import useWindowSize from '../../hooks/useWindowSize';
-import { SidebarContext } from '../../App';
-import routes from '../../conf/routes.js';
-import theme from '../../conf/theme.js';
+import useWindowSize from '@Hooks/useWindowSize';
+import routes from '@Conf/routes.js';
+import theme from '@Conf/theme.js';
+import { SidebarContext } from '@Home/App';
 
 function Sidebar({ minWidth, showBrand }) {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext);

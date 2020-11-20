@@ -5,7 +5,10 @@
 		}
 	],
 	"settings": {
-		"editor.fontFamily": "Fira Code"
+		"editor.fontFamily": "Fira Code",
+		"cSpell.words": [
+			"Trello"
+		]
 	},
 	"launch": {
 		"version": "0.2.0",

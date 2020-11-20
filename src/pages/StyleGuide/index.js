@@ -1,6 +1,6 @@
 import React, { forwardRef, useRef } from "react";
-import Button from "../../components/common/Button/";
-import Task from "../../components/Task/";
+import Button from "@Components/common/Button/";
+import Task from "@Components/Task/";
 
 import { FaExternalLinkAlt } from "react-icons/fa";
 import "../../assets/css/style.css";
