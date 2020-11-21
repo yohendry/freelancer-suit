@@ -1,15 +1,20 @@
 import React, { useEffect} from 'react';
-import {gsap} from 'gsap';
+import { gsap } from 'gsap';
+import clsx from 'clsx';
 
 const PageAnimationRenderer = ({children}) => {
   useEffect(() => {
     gsap.fromTo('.page-animation-renderer',
-      {opacity: 0},
-      {opacity: 1, duration: 0.7, ease: "ease-in"}
+      { opacity: 0 },
+      { opacity: 1, duration: 0.7, ease: "ease-in" }
     );
-  }, [children])
+  }, [children]);
+
+  const classes = {
+    pageAnimation: clsx('page-animation-renderer')
+  };
   return (
-    <div className={"page-animation-renderer"}>
+    <div className={classes.pageAnimation}>
       {children}
     </div>
   );
