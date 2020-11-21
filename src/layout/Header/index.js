@@ -1,82 +1,104 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { BiBell } from "react-icons/bi";
-import { FaBars } from 'react-icons/fa';
-
-import avatar1 from "@Images/avatar-1.svg";
-import avatar2 from "@Images/avatar-2.svg";
-import avatar3 from "@Images/avatar-3.svg";
-import avatar4 from "@Images/avatar-4.svg";
-import SidebarToggleButton from "@Layout/Header/SidebarToggleButton";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { BiBell } from 'react-icons/bi';
+import { FaBars, FaSearch } from 'react-icons/fa';
+import clsx from 'clsx';
+import avatar1 from '@Images/avatar-1.svg';
+import avatar2 from '@Images/avatar-2.svg';
+import avatar3 from '@Images/avatar-3.svg';
+import avatar4 from '@Images/avatar-4.svg';
+import SidebarToggleButton from '@Layout/Header/SidebarToggleButton';
 
 function Header({ className, showBrand }) {
   const avatarList = [avatar1, avatar2, avatar3, avatar4];
+  const classes = {
+    header: clsx(
+      'flex',
+      'items-center',
+      'z-10',
+      'p-4',
+      'bg-white',
+      'shadow-md',
+      'bg-gray-800',
+      'text-blue-500',
+      className
+    ),
+    headerInner: clsx('flex-1', 'flex', 'items-center', 'justify-between', 'h-full'),
+    sidebarToggleButton: clsx('p-1', 'mr-3', 'rounded-md', 'hover:text-blue-400'),
+    sidebarToggleButtonIcon: clsx('w-6', 'h-6'),
+    homeLink: clsx('navlink-home', 'mr-6', 'hidden', 'md:block'),
+    headerBody: clsx('flex', 'flex-1'),
+    headerBodyInner: clsx('relative', 'w-full', 'max-w-xl', 'mr-6', 'focus-within:text-purple-500'),
+    headerSearchIconWrapper: clsx('absolute', 'inset-y-0', 'flex', 'items-center', 'pl-4'),
+    headerSearchIcon: clsx('h-4', 'w-4'),
+    headerSearch: clsx('search-field', 'placeholder-gray-500'),
+    headerActions: clsx('flex', 'items-center', 'flex-shrink-0', 'space-x-4'),
+    headerNotificationWrapperClass: clsx('relative', 'align-middle', 'rounded-md', 'hover:text-blue-400'),
+    headerNotificationWrapperClassIndicator: clsx(
+      'absolute',
+      'top-0',
+      'right-0',
+      'inline-block',
+      'w-3',
+      'h-3',
+      'bg-red-600',
+      'border-2',
+      'border-white',
+      'rounded-full',
+      'dark:border-gray-800'
+    ),
+    headerAvatarButton: clsx('align-middle', 'rounded-full'),
+    headerAvatarImage: clsx('object-cover', 'w-10', 'h-10', 'rounded-full', 'p-1', 'bg-white')
+  };
+  const avatarIndex = Math.floor(Math.random() * avatarList.length);
   return (
-    <header
-      className={`flex items-center z-10 p-4 bg-white shadow-md bg-gray-800 text-blue-500 ${
-        className || ""
-      }`}
-    >
-      <div className="flex-1 flex items-center justify-between h-full">
-        <SidebarToggleButton className="p-1 mr-3 rounded-md hover:text-blue-400">
+    <header className={classes.header}>
+      <div className={classes.headerInner}>
+        <SidebarToggleButton className={classes.sidebarToggleButton}>
           <FaBars
-            className="w-6 h-6"
+            className={classes.sidebarToggleButtonIcon}
             aria-hidden="true"
             fill="currentColor"
           />
         </SidebarToggleButton>
         {showBrand && (
-          <Link to="/" className="navlink-home mr-6 hidden md:block">
+          <Link to="/" className={classes.homeLink}>
             freelancer suite
           </Link>
         )}
-        <div className="flex flex-1">
-          <div className="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
-            <div className="absolute inset-y-0 flex items-center pl-4">
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clipRule="evenodd"
-                />
-              </svg>
+        <div className={classes.headerBody}>
+          <div className={classes.headerBodyInner}>
+            <div className={classes.headerSearchIconWrapper}>
+              <FaSearch className={classes.headerSearchIcon} />
             </div>
             <input
-              className="search-field placeholder-gray-500"
+              className={classes.headerSearch}
               type="text"
               placeholder="Search for projects"
-              aria-label="Search"
-            />
+              aria-label="Search" />
           </div>
         </div>
-        <ul className="flex items-center flex-shrink-0 space-x-4">
-          <li className="relative" style={{ fontSize: "1.75em" }}>
+        <ul className={classes.headerActions}>
+          <li
+            className="relative"
+            style={{ fontSize: '1.75em' }}>
             <button
-              className="relative align-middle rounded-md hover:text-blue-400"
-              aria-label="Notifications"
-              aria-haspopup="true"
-            >
+              className={classes.headerNotificationWrapperClass}
+              aria-label="Notifications" aria-haspopup="true">
               <BiBell />
               <span
                 aria-hidden="true"
-                className="absolute top-0 right-0 inline-block w-3 h-3 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
-              />
+                className={classes.headerNotificationWrapperClassIndicator} />
             </button>
           </li>
           <li className="relative">
             <button
-              className="align-middle rounded-full"
+              className={classes.headerAvatarButton}
               aria-label="Account"
-              aria-haspopup="true"
-            >
+              aria-haspopup="true">
               <img
-                className="object-cover w-10 h-10 rounded-full p-1 bg-white"
-                src={avatarList[Math.floor(Math.random() * avatarList.length)]}
+                className={classes.headerAvatarImage}
+                src={avatarList[avatarIndex]}
                 alt="Person Name"
                 aria-hidden="true"
               />

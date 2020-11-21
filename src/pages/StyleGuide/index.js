@@ -3,7 +3,7 @@ import Button from "@Components/common/Button/";
 import Task from "@Components/Task/";
 
 import { FaExternalLinkAlt } from "react-icons/fa";
-import "../../assets/css/style.css";
+import "@Assets/css/style.css";
 function StyleGuide() {
   const taskRefsList = useRef([]);
 

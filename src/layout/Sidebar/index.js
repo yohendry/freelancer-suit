@@ -1,15 +1,18 @@
 import React, { useRef, useEffect, useContext } from 'react';
+import clsx from 'clsx';
 import { NavLink, Link } from 'react-router-dom';
 import { FaWindowClose } from 'react-icons/fa';
-import useWindowSize from '@Hooks/useWindowSize';
-import routes from '@Conf/routes.js';
-import theme from '@Conf/theme.js';
 import { SidebarContext } from '@Home/App';
+
+import useWindowSize from '@Hooks/useWindowSize';
+import useSidebarController from './controller.js';
+import theme from '@Conf/theme.js';
 
 function Sidebar({ minWidth, showBrand }) {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext);
   const { screenIsAtMost, screenIsAtLeast } = useWindowSize();
   const sidebarRef = useRef(null);
+  const { links } = useSidebarController();
 
   const checkCloseSidebar = () => { 
     if (screenIsAtLeast('md')) { 
@@ -18,33 +21,40 @@ function Sidebar({ minWidth, showBrand }) {
     setIsSidebarOpen(false);
   }
 
-  const buildSidebarLinks = (routes) => { 
-    const isSidebarRoute = (route) => {
-      if (!('navbar' in route)) return false;
-      return 'show' in route.navbar && route.navbar.show && 'order' in route.navbar;
-    };
-    const sortLinks = (prev, current) => (prev.order < current.order ? -1 : 1);
-    return routes
-      .filter(isSidebarRoute)
-      .map((link) => ({ ...link, ...link.navbar }))
-      .sort(sortLinks);
-  }
+  const hideHeader = theme.layout === theme.CONST.THEME.LAYOUT.HEADER_FIRST;
 
-  const links = buildSidebarLinks(routes);
-  
+  const classes = {
+    sidebar: () => {
+      const sidebarClasses = ['shadow-2xl', 'md:shadow-none', 'sidebar', 'top-0', 'md:relative'];
+      if (!isSidebarOpen) {
+        const tmpClass = screenIsAtLeast('md') ? 'shrink-sidebar' : 'hide-sidebar';
+        sidebarClasses.push(tmpClass);
+      } else {
+        sidebarClasses.push('md:w-64');
+      }
+      const isLayoutHeaderFirst = theme.layout === theme.CONST.THEME.LAYOUT.SIDEBAR_FIRST;
+      if (isLayoutHeaderFirst) {
+        sidebarClasses.push('md:pt-0');
+      }
+      return clsx(sidebarClasses);
+    },
+    sidebarHeader: clsx('mr-4', 'md:mr-2', 'flex', 'justify-between', 'my-4', isSidebarOpen ? 'ml-10' : 'ml-3', hideHeader && 'md:hidden'),
+    brandLink: clsx('navlink-home', 'text-2xl', 'md:text-sm'),
+    closeSidebarButton: clsx('p-3', 'rounded-md', 'text-blue-500', 'hover:text-blue-400', 'md:hidden', 'hover:outline-none'),
+    closeSidebarButtonIcon: clsx('w-6', 'h-6'),
+    sidebarNav: clsx('mt-5', 'md:mt-0'),
+    sidebarNavUl: clsx('text-gray-400'),
+    sidebarNavUlLi: clsx('relative', 'my-2', isSidebarOpen ? 'pr-12' : 'mr-4'),
+    navLink: (extraClass) => clsx('navlink', 'text-2xl', 'md:text-sm', 'my-2', 'md:my-0', 'py-3', 'md:py-2', extraClass),
+    navLinkIndicator: clsx('navlink-indicator'),
+    navLinkIcon: clsx('sidebar-icon'),
+    navLinkTag: clsx('tag')
+  };
 
-  
-
-  const sidebarClasses = ['shadow-2xl', 'md:shadow-none', 'sidebar', 'top-0', 'md:relative'];
-  if (!isSidebarOpen) {
-    screenIsAtLeast('md') ? sidebarClasses.push('shrink-sidebar') : sidebarClasses.push('hide-sidebar');
-  } else { 
-    sidebarClasses.push('md:w-64');
-  }
-
-  if (theme.layout === theme.CONST.THEME.LAYOUT.SIDEBAR_FIRST) {
-    sidebarClasses.push('md:pt-0');
-  }
+  const brand = {
+    doShow: showBrand || screenIsAtMost('md'),
+    text: screenIsAtLeast('md') && !isSidebarOpen ? 'FS' : 'Freelancer Suite'
+  };
 
   useEffect(() => {
     if (!isSidebarOpen) {
@@ -54,33 +64,27 @@ function Sidebar({ minWidth, showBrand }) {
     
   }, [isSidebarOpen]);
 
-  const hideHeader = theme.layout === theme.CONST.THEME.LAYOUT.HEADER_FIRST;
-
   return (
-    <aside className={sidebarClasses.join(' ')}>
-      <div
-        className={`${isSidebarOpen ? 'ml-10' : 'ml-3'} mr-4 md:mr-2 flex justify-between my-4 ${
-          hideHeader ? 'md:hidden' : ''
-        }`}
-      >
-        {(showBrand || screenIsAtMost('md')) && (
-          <Link to="/" className="navlink-home text-2xl md:text-sm" onClick={checkCloseSidebar}>
-            {screenIsAtLeast('md') && !isSidebarOpen ? 'FS' : 'Freelancer Suite'}
+    <aside className={classes.sidebar()}>
+      <div className={classes.sidebarHeader}>
+        {brand.doShow && (
+          <Link to="/" className={classes.brandLink} onClick={checkCloseSidebar}>
+            {brand.text}
           </Link>
         )}
         <button
-          className="p-3 rounded-md text-blue-500 hover:text-blue-400 md:hidden hover:outline-none"
+          className={classes.closeSidebarButton}
           ref={sidebarRef}
           onClick={() => setIsSidebarOpen(false)}
         >
-          <FaWindowClose className="w-6 h-6" aria-hidden="true" fill="currentColor" />
+          <FaWindowClose className={classes.closeSidebarButtonIcon} aria-hidden="true" fill="currentColor" />
         </button>
       </div>
-      <nav className="mt-5 md:mt-0">
-        <ul className="text-gray-400">
+      <nav className={classes.sidebarNav}>
+        <ul className={classes.sidebarNavUl}>
           {links.map(({ name, exact, path, Icon, linkPath, extraClass }) => (
             <li
-              className={`relative ${isSidebarOpen ? 'pr-12' : 'mr-4'} my-2`}
+              className={classes.sidebarNavUlLi}
               key={name}
             >
               <NavLink
@@ -90,11 +94,11 @@ function Sidebar({ minWidth, showBrand }) {
                 aria-label={name}
                 title={name}
                 activeClassName="active"
-                className={`navlink ${extraClass} text-2xl md:text-sm my-2 md:my-0 py-3 md:py-2`}
+                className={classes.navLink(extraClass)}
               >
-                <span className="navlink-indicator" aria-hidden="true" />
-                {<Icon className="sidebar-icon" />}
-                <span className="tag">{name}</span>
+                <span className={classes.navLinkIndicator} aria-hidden="true" />
+                <Icon className={classes.navLinkIcon} />
+                <span className={classes.navLinkTag}>{name}</span>
               </NavLink>
             </li>
           ))}

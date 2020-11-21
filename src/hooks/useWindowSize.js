@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { breakpoints } from '../constants.js'
+import { breakpoints } from '@Home/constants.js'
 
 function useWindowSize() {
   const isWindowClient = typeof window === "object";
