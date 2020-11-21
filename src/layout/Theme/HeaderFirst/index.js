@@ -4,10 +4,9 @@ import Header from '@Layout/Header';
 import Sidebar from '@Layout/Sidebar';
 import Body from '@Layout/Body';
 import Footer from '@Layout/Footer';
-import Backdrop from '@Layout/Backdrop';
 
 function HeaderFirst({ options }) {
-  const { isSidebarOpen, closeSidebar, theme } = options;
+  const { isSidebarOpen, theme } = options;
 
   const classes = {
     layoutWrapper: clsx('flex', 'flex-col', 'relative'),
@@ -16,8 +15,7 @@ function HeaderFirst({ options }) {
   return (
     <div className={classes.layoutWrapper}>
       <Header showBrand={true} />
-      <div className={classes.main}>
-        {isSidebarOpen && <Backdrop closeSidebar={closeSidebar} />}
+      <div className={classes.main}>\
         <Sidebar open={isSidebarOpen} minWidth={theme.sidebarWith} showBrand={false} />
         <Body />
       </div>

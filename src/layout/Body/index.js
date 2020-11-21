@@ -24,4 +24,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default React.memo(Body);
