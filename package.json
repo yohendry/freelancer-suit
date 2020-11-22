@@ -88,7 +88,7 @@
   "scripts": {
     "build:css": "postcss src/assets/css/tailwind.css -o src/assets/css/style.css",
     "watch": "postcss src/assets/css/tailwind.css -o src/assets/css/style.css --watch",
-    "start": "npm run build:css && node scripts/start.js",
+    "start": "npm run build:css && node scripts/start.js && npm run watch",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },

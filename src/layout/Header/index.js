@@ -17,9 +17,9 @@ function Header({ className, showBrand }) {
       'items-center',
       'z-10',
       'p-4',
-      'bg-white',
       'shadow-md',
       'bg-gray-800',
+      'md:bg-gray-300',
       'text-blue-500',
       className
     ),
@@ -31,7 +31,7 @@ function Header({ className, showBrand }) {
     headerBodyInner: clsx('relative', 'w-full', 'max-w-xl', 'mr-6', 'focus-within:text-purple-500'),
     headerSearchIconWrapper: clsx('absolute', 'inset-y-0', 'flex', 'items-center', 'pl-4'),
     headerSearchIcon: clsx('h-4', 'w-4'),
-    headerSearch: clsx('search-field', 'placeholder-gray-500'),
+    headerSearch: clsx('search-field', 'placeholder-gray-500', 'md:bg-gray-400'),
     headerActions: clsx('flex', 'items-center', 'flex-shrink-0', 'space-x-4'),
     headerNotificationWrapperClass: clsx('relative', 'align-middle', 'rounded-md', 'hover:text-blue-400'),
     headerNotificationWrapperClassIndicator: clsx(

@@ -1,5 +1,6 @@
-import React, { useRef, useEffect, useContext } from 'react';
 import clsx from 'clsx';
+import { gsap } from 'gsap';
+import React, { useRef, useEffect, useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { FaWindowClose } from 'react-icons/fa';
 import { SidebarContext } from '@Home/App';
@@ -7,6 +8,19 @@ import { SidebarContext } from '@Home/App';
 import useWindowSize from '@Hooks/useWindowSize';
 import useSidebarController from './controller.js';
 import theme from '@Conf/theme.js';
+
+const performHideAnimations = () => {
+  gsap.to('.navlink .tag',
+    { width: 0, opacity: 0, duration: 0 }
+  );
+};
+
+const performShowAnimations = () => {
+  gsap.fromTo('.navlink .tag',
+    { opacity: 0, width: 0 },
+    { opacity: 1, duration: 0.5, ease: 'ease-in'}
+  );
+};
 
 function Sidebar({ minWidth, showBrand }) {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext);
@@ -29,9 +43,7 @@ function Sidebar({ minWidth, showBrand }) {
       if (!isSidebarOpen) {
         const tmpClass = screenIsAtLeast('md') ? 'shrink-sidebar' : 'hide-sidebar';
         sidebarClasses.push(tmpClass);
-      } else {
-        sidebarClasses.push('md:w-64');
-      }
+      } 
       const isLayoutHeaderFirst = theme.layout === theme.CONST.THEME.LAYOUT.SIDEBAR_FIRST;
       if (isLayoutHeaderFirst) {
         sidebarClasses.push('md:pt-0');
@@ -39,13 +51,13 @@ function Sidebar({ minWidth, showBrand }) {
       return clsx(sidebarClasses);
     },
     sidebarHeader: clsx('mr-4', 'md:mr-2', 'flex', 'justify-between', 'my-4', isSidebarOpen ? 'ml-10' : 'ml-3', hideHeader && 'md:hidden'),
-    brandLink: clsx('navlink-home', 'text-2xl', 'md:text-sm'),
-    closeSidebarButton: clsx('p-3', 'rounded-md', 'text-blue-500', 'hover:text-blue-400', 'md:hidden', 'hover:outline-none'),
+    brandLink: clsx('navlink-home', 'text-2xl', 'm-1','md:text-sm'),
+    closeSidebarButton: clsx('p-3', 'm-1', 'rounded-md', 'text-blue-500', 'hover:text-blue-400', 'md:hidden', 'hover:outline-none'),
     closeSidebarButtonIcon: clsx('w-6', 'h-6'),
     sidebarNav: clsx('mt-5', 'md:mt-0'),
     sidebarNavUl: clsx('text-gray-400'),
-    sidebarNavUlLi: clsx('relative', 'my-2', isSidebarOpen ? 'pr-12' : 'mr-4'),
-    navLink: (extraClass) => clsx('navlink', 'text-2xl', 'md:text-sm', 'my-2', 'md:my-0', 'py-3', 'md:py-2', extraClass),
+    sidebarNavUlLi: clsx('relative', 'my-2', isSidebarOpen ? 'pr-12' : 'mr-3'),
+    navLink: (extraClass) => clsx('navlink', 'text-2xl', 'md:text-sm', 'my-1', 'md:my-2', 'md:my-0', 'py-5', 'md:py-2', extraClass),
     navLinkIndicator: clsx('navlink-indicator'),
     navLinkIcon: clsx('sidebar-icon'),
     navLinkTag: clsx('tag')
@@ -57,16 +69,18 @@ function Sidebar({ minWidth, showBrand }) {
   };
 
   useEffect(() => {
-    if (!isSidebarOpen) {
-      return;
-    }
     sidebarRef.current.focus();
-    
+
+    isSidebarOpen ? (
+      performShowAnimations()
+    ): (
+      performHideAnimations()
+    );
   }, [isSidebarOpen]);
 
   return (
     <aside className={classes.sidebar()}>
-      <div className={classes.sidebarHeader}>
+      <div className={classes.sidebarHeader} style={{overflow: 'hidden', whiteSpace: 'nowrap'}}>
         {brand.doShow && (
           <Link to="/" className={classes.brandLink} onClick={checkCloseSidebar}>
             {brand.text}
