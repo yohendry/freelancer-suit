@@ -23,6 +23,8 @@
     "css-loader": "4.3.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
     "eslint": "^7.12.1",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-flowtype": "^5.2.0",
@@ -136,7 +138,8 @@
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}",
+      "<rootDir>/src/**/{spec,test}.{js,jsx,ts,tsx}"
     ],
     "testEnvironment": "jsdom",
     "testRunner": "/Users/yohendryhurtado/projects/freelancer-suit/node_modules/jest-circus/runner.js",
@@ -154,6 +157,14 @@
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
+      "^@Components(.*)$": "<rootDir>/src/components$1",
+      "^@Images(.*)$": "<rootDir>/src/assets/images$1",
+      "^@Layout(.*)$": "<rootDir>/src/layout$1",
+      "^@Assets(.*)$": "<rootDir>/src/assets$1",
+      "^@Pages(.*)$": "<rootDir>/src/pages$1",
+      "^@Hooks(.*)$": "<rootDir>/src/hooks$1",
+      "^@Conf(.*)$": "<rootDir>/src/conf$1",
+      "^@Home(.*)$": "<rootDir>/src$1",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
@@ -172,7 +183,11 @@
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ],
-    "resetMocks": true
+    "resetMocks": true,
+    "unmockedModulePathPatterns": [
+      "node_modules/react/",
+      "node_modules/enzyme/"
+    ]
   },
   "babel": {
     "presets": [

@@ -8,7 +8,9 @@
 		"editor.fontFamily": "Fira Code",
 		"cSpell.words": [
 			"Trello",
-			"clsx"
+			"clsx",
+			"navlink",
+			"rerender"
 		]
 	},
 	"launch": {

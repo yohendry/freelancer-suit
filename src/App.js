@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import HeaderFirst from '@Layout/Theme/HeaderFirst';
 import SidebarFirst from '@Layout/Theme/SidebarFirst';
+import { SidebarContext } from '@Layout/Sidebar';
 import theme from '@Conf/theme.js';
 import '@Assets/css/style.css';
 
-export const SidebarContext = React.createContext();
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

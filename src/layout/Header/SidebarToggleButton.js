@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { SidebarContext } from '@Home/App';
+import { SidebarContext } from '@Layout/Sidebar';
 
 function SidebarToggleButton({className, children}, ref) {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext);

@@ -1,41 +1,43 @@
-import { useState, useEffect } from "react";
-import { breakpoints } from '@Home/constants.js'
+import { useState, useEffect, useCallback } from 'react';
+import { breakpoints } from '@Home/constants.js';
+
+const _screenIsAtLeast = (windowSize, key) => {
+  const size = breakpoints[key];
+  return size && !isNaN(size) && windowSize >= size ? true : false;
+};
+
+const _screenIsAtMost = (windowSize, key) => {
+  const size = breakpoints[key];
+  return size && !isNaN(size) && windowSize < size ? true : false;
+};
 
 function useWindowSize() {
-  const isWindowClient = typeof window === "object";
+  const isWindowClient = typeof window === 'object';
 
-  const [windowSize, setWindowSize] = useState(
-    isWindowClient ? window.innerWidth : undefined
-  );
+  const [windowSize, setWindowSize] = useState(isWindowClient ? window.innerWidth : undefined);
+  const [isMobile, setIsMobile] = useState(windowSize ? window.innerWidth : undefined);
+
+  const screenIsAtLeast = useCallback((key) => _screenIsAtLeast(windowSize, key), [windowSize]);
+  const screenIsAtMost = useCallback((key) => _screenIsAtMost(windowSize, key), [windowSize]);
 
   //👇
   useEffect(() => {
-    //a handler which will be called on change of the screen resize
-    function setSize() {
-      setWindowSize(window.innerWidth);
-    }
-
-    if (isWindowClient) {
-      //register the window resize listener
-      window.addEventListener("resize", setSize);
-
-      //un-register the listener
-      return () => window.removeEventListener("resize", setSize);
-    }
+    if (!isWindowClient) return;
+    const setSize = () => setWindowSize(window.innerWidth)
+    window.addEventListener('resize', setSize);
+    //un-register the listener
+    return () => window.removeEventListener('resize', setSize);
   }, [isWindowClient, setWindowSize]);
   //☝️
 
-  const screenIsAtLeast = (key) => {
-    const size = breakpoints[key];
-    return (size && !isNaN(size) && windowSize >= size) ? true : false;
-  };
+  useEffect(() => {
+    if (!isWindowClient) return;
+    const calculatedIsMobile = screenIsAtMost('md');
+    if (isMobile === calculatedIsMobile) return;
+    setIsMobile(calculatedIsMobile);
+  }, [isWindowClient, isMobile, setIsMobile, screenIsAtMost]);
 
-  const screenIsAtMost = (key) => {
-    const size = breakpoints[key];
-    return (size && !isNaN(size) && windowSize < size) ? true : false;
-  };
-
-  return {windowSize, screenIsAtLeast, screenIsAtMost};
+  return { windowSize, screenIsAtLeast, screenIsAtMost, isMobile };
 }
 
 export default useWindowSize;

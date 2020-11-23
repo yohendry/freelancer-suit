@@ -3,9 +3,7 @@ import { gsap } from 'gsap';
 import React, { useRef, useEffect, useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { FaWindowClose } from 'react-icons/fa';
-import { SidebarContext } from '@Home/App';
-
-import useWindowSize from '@Hooks/useWindowSize';
+import { SidebarContext } from './context.js';
 import useSidebarController from './controller.js';
 import theme from '@Conf/theme.js';
 
@@ -22,14 +20,13 @@ const performShowAnimations = () => {
   );
 };
 
-function Sidebar({ minWidth, showBrand }) {
+function Sidebar({isMobile, showBrand }) {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext);
-  const { screenIsAtMost, screenIsAtLeast } = useWindowSize();
   const sidebarRef = useRef(null);
   const { links } = useSidebarController();
 
   const checkCloseSidebar = () => { 
-    if (screenIsAtLeast('md')) { 
+    if (!isMobile) { 
       return;
     }
     setIsSidebarOpen(false);
@@ -41,7 +38,7 @@ function Sidebar({ minWidth, showBrand }) {
     sidebar: () => {
       const sidebarClasses = ['shadow-2xl', 'md:shadow-none', 'sidebar', 'top-0', 'md:relative'];
       if (!isSidebarOpen) {
-        const tmpClass = screenIsAtLeast('md') ? 'shrink-sidebar' : 'hide-sidebar';
+        const tmpClass = !isMobile ? 'shrink-sidebar' : 'hide-sidebar';
         sidebarClasses.push(tmpClass);
       } 
       const isLayoutHeaderFirst = theme.layout === theme.CONST.THEME.LAYOUT.SIDEBAR_FIRST;
@@ -64,8 +61,8 @@ function Sidebar({ minWidth, showBrand }) {
   };
 
   const brand = {
-    doShow: showBrand || screenIsAtMost('md'),
-    text: screenIsAtLeast('md') && !isSidebarOpen ? 'FS' : 'Freelancer Suite'
+    doShow: showBrand || isMobile,
+    text: !isMobile && !isSidebarOpen ? 'FS' : 'Freelancer Suite'
   };
 
   useEffect(() => {
@@ -79,10 +76,10 @@ function Sidebar({ minWidth, showBrand }) {
   }, [isSidebarOpen]);
 
   return (
-    <aside className={classes.sidebar()}>
+    <aside className={classes.sidebar()} id="sidebar" title="sidebar">
       <div className={classes.sidebarHeader} style={{overflow: 'hidden', whiteSpace: 'nowrap'}}>
         {brand.doShow && (
-          <Link to="/" className={classes.brandLink} onClick={checkCloseSidebar}>
+          <Link to="/" className={classes.brandLink} onClick={checkCloseSidebar} id="brand">
             {brand.text}
           </Link>
         )}
@@ -90,6 +87,8 @@ function Sidebar({ minWidth, showBrand }) {
           className={classes.closeSidebarButton}
           ref={sidebarRef}
           onClick={() => setIsSidebarOpen(false)}
+          id="close-sidebar"
+          aria-label="Close Sidebar"
         >
           <FaWindowClose className={classes.closeSidebarButtonIcon} aria-hidden="true" fill="currentColor" />
         </button>
@@ -121,5 +120,5 @@ function Sidebar({ minWidth, showBrand }) {
     </aside>
   );
 }
-
+export { SidebarContext };
 export default Sidebar;
