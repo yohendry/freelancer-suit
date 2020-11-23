@@ -62,7 +62,7 @@ function Sidebar({isMobile, showBrand }) {
 
   const brand = {
     doShow: showBrand || isMobile,
-    text: !isMobile && !isSidebarOpen ? 'FS' : 'Freelancer Suite'
+    text: !isMobile && !isSidebarOpen ? theme.brand.shortName : theme.brand.fullName
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ function Sidebar({isMobile, showBrand }) {
   }, [isSidebarOpen]);
 
   return (
-    <aside className={classes.sidebar()} id="sidebar" title="sidebar">
+    <aside className={classes.sidebar()} id="sidebar" data-testid="sidebar">
       <div className={classes.sidebarHeader} style={{overflow: 'hidden', whiteSpace: 'nowrap'}}>
         {brand.doShow && (
           <Link to="/" className={classes.brandLink} onClick={checkCloseSidebar} id="brand">

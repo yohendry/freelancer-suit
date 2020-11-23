@@ -1,15 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { render, fireEvent, getByTitle, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
+import theme from '@Conf/theme.js';
 // Subject Under Test
 import Sidebar, { SidebarContext } from './index.js';
 
 const setIsSidebarOpen = jest.fn();
-const mockSetState = jest.fn();
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useState: (initial) => [initial, mockSetState],
-}));
+// const mockSetState = jest.fn();
+// jest.mock('react', () => ({
+//   ...jest.requireActual('react'),
+//   useState: (initial) => [initial, mockSetState],
+// }));
 
 const getSidebarTemplate = ({ open, brand, mobile }) => (
   <SidebarContext.Provider value={{ isSidebarOpen: open, setIsSidebarOpen: setIsSidebarOpen }}>
@@ -19,55 +20,77 @@ const getSidebarTemplate = ({ open, brand, mobile }) => (
   </SidebarContext.Provider>
 );
 
+const classes = {
+  shrinkSidebar: 'shrink-sidebar',
+  hideSidebar: 'hide-sidebar',
+};
+
 describe('Test differente states', () => {
-  it('Show or Hide Brand name when specified', () => {
+  it('Show, Shrink or Hide Brand name when specified', () => {
     const options = {
       open: true,
       brand: false,
       mobile: false,
     };
-    const { rerender } = render(getSidebarTemplate(options));
+    const { rerender } = render(getSidebarTemplate(options)); //hidden brand
     expect(document.getElementById('brand')).toBeNull();
 
     options.brand = true;
-    rerender(getSidebarTemplate(options));
+    rerender(getSidebarTemplate(options)); //show Brand sidebar
     expect(document.getElementById('brand')).toBeInTheDocument();
+    expect(document.getElementById('brand').text === theme.brand.fullName).toBeTruthy();
+
+    options.open = false;
+    rerender(getSidebarTemplate(options)); //shrink sidebar
+    expect(document.getElementById('brand').text === theme.brand.shortName).toBeTruthy();
+
+    options.open = true;
+    options.mobile = true;
+    rerender(getSidebarTemplate(options)); //open sidebar in mobile
+    expect(document.getElementById('brand').text === theme.brand.fullName).toBeTruthy();
   });
 
-  it('should expand on mobile and desktop', () => {
+  it('should expand on mobile and desktop', async () => {
     const options = {
       open: true,
-      brand: false,
+      brand: true,
       mobile: true,
     };
-    render(getSidebarTemplate(options));
-    const classes = document.getElementById('sidebar').classList;
-    expect(classes.contains('hide-sidebar')).toBeFalsy();
-    expect(classes.contains('shrink-sidebar')).toBeFalsy();
+    const { getByTestId } = render(getSidebarTemplate(options));
+    const classes = await getByTestId('sidebar').className.split(' ');
+    [classes.hideSidebar, classes.shrinkClass].forEach((className) => {
+      expect(classes.includes(className)).toBeFalsy();
+    });
+
+    const brand = document.getElementById('brand').text;
+    expect(brand === theme.brand.fullName).toBeTruthy();
   });
 
-  it('should hide when close on mobile', () => {
+  it('should hide when close on mobile', async () => {
     const options = {
       open: false,
       brand: false,
       mobile: true,
     };
-    render(getSidebarTemplate(options));
-    const classes = document.getElementById('sidebar').classList;
-    expect(classes.contains('hide-sidebar')).toBeTruthy();
-    expect(classes.contains('shrink-sidebar')).toBeFalsy();
+    const { getByTestId } = render(getSidebarTemplate(options));
+    const sidebar = await getByTestId('sidebar');
+    const currentClasses = sidebar.className.split(' ');
+    expect(currentClasses.includes(classes.hideSidebar)).toBeTruthy();
+    expect(currentClasses.includes(classes.shrinkSidebar)).toBeFalsy();
   });
 
-  it('should shrink when close on desktop', () => {
+  it('should shrink when close on desktop', async () => {
     const options = {
       open: false,
-      brand: false,
+      brand: true,
       mobile: false,
     };
-    render(getSidebarTemplate(options));
-    const classes = document.getElementById('sidebar').classList;
-    expect(classes.contains('shrink-sidebar')).toBeTruthy();
-    expect(classes.contains('hide-sidebar')).toBeFalsy();
+    const { findByTestId } = render(getSidebarTemplate(options));
+    const currentClasses = await (await findByTestId('sidebar')).className.split(' ');
+    expect(currentClasses.includes(classes.hideSidebar)).toBeFalsy();
+    expect(currentClasses.includes(classes.shrinkSidebar)).toBeTruthy();
+    const brand = document.getElementById('brand').text;
+    expect(brand === theme.brand.shortName).toBeTruthy();
   });
 
   it('Should close when navlink is clicked on mobile', async () => {
@@ -76,12 +99,11 @@ describe('Test differente states', () => {
       brand: false,
       mobile: true,
     };
-    render(getSidebarTemplate(options));
-    const homeLink = await screen.findByTitle('Home');
-    let sidebar = await screen.findByTitle('sidebar');
-    expect(homeLink).toBeInTheDocument();
-    expect(sidebar.className.split(' ').includes('hide-sidebar')).toBeFalsy();
+    const { findByTestId, findByTitle } = render(getSidebarTemplate(options));
+    let sidebar = await findByTestId('sidebar');
+    expect(sidebar.className.split(' ').includes(classes.hideSidebar)).toBeFalsy();
 
+    const homeLink = await findByTitle('Home');
     fireEvent.click(homeLink);
     expect(setIsSidebarOpen).toHaveBeenCalledWith(false);
   });
@@ -92,13 +114,14 @@ describe('Test differente states', () => {
       brand: false,
       mobile: false,
     };
-    render(getSidebarTemplate(options));
-    const homeLink = await screen.findByTitle('Home');
-    let sidebar = await screen.findByTitle('sidebar');
+    const { findByTestId, findByTitle } = render(getSidebarTemplate(options));
+    const homeLink = await findByTitle('Home');
+    let sidebar = await findByTestId('sidebar');
     expect(homeLink).toBeInTheDocument();
-    expect(sidebar.className.split(' ').includes('hide-sidebar')).toBeFalsy();
+    expect(sidebar.className.split(' ').includes(classes.shrinkSidebar)).toBeFalsy();
 
     fireEvent.click(homeLink);
+    sidebar = await findByTestId('sidebar');
     expect(setIsSidebarOpen).not.toHaveBeenCalled();
   });
 });

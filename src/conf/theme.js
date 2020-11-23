@@ -1,4 +1,8 @@
 const theme = {
+  brand: {
+    fullName: 'Freelancer Suite',
+    shortName: 'FS'
+  },
   layout: 2, // either 1 or 2; 1 is HEADER first, 2 is SIDEBAR First
   CONST: {
     THEME: {
